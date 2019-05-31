@@ -1,4 +1,4 @@
-import beautifulsoup4, requests, os, sys, argparse, re
+import beautifulsoup4, requests, os, sys, argparse, re, webbrowser
 
 class WebScraper():
 	def __init__(self, ):
