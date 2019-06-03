@@ -125,3 +125,4 @@ print("some_nonexistent_addr is NOT in the spanelem list: {}".format(spanelem.ge
 # see the attributs of the span elems list
 print(spanelem.attrs)
 
+print(spanelem.prettify)
