@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/s/b0dcca.css" title="Default"/>
+<title>xkcd: Pixels</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<link rel="shortcut icon" href="/s/919f27.ico" type="image/x-icon"/>
+<link rel="icon" href="/s/919f27.ico" type="image/x-icon"/>
+<link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="/atom.xml"/>
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.xml"/>
+<script type="text/javascript" src="/s/b66ed7.js" async></script>
+<script type="text/javascript" src="/s/1b9456.js" async></script>
+
+</head>
+<body>
+<div id="topContainer">
+<div id="topLeft">
+<ul>
+<li><a href="/archive">Archive</a></li>
+<li><a href="http://what-if.xkcd.com">What If?</a></li>
+<li><a href="http://blag.xkcd.com">Blag</a></li>
+<li><a href="http://store.xkcd.com/">Store</a></li>
+<li><a rel="author" href="/about">About</a></li>
+<!-- <li><a href="/atom.xml">Feed</a> &bull; <a href="/newsletter/">Email</a></li> -->
+</ul>
+</div>
+<div id="topRight">
+<div id="masthead">
+<span><a href="/"><img src="/s/0b7742.png" alt="xkcd.com logo" height="83" width="185"/></a></span>
+<span id="slogan">A webcomic of romance,<br/> sarcasm, math, and language.</span>
+</div>
+<div id="news">
+<style>
+#book-cover {height: 160px; padding-right: 1em; float: left; margin-top: 0.7em;}
+#announcement, #book-title { color: #182029; font-family: verdana, tahoma, sans-serif;}
+#announcement {font-size: 16px; line-height: 1.3; font-weight: normal; color: #aaa; font-style: italic;}
+#book-title {text-align: left; font-size: 16px; line-height: 1.5; text-transform: uppercase; font-weight: normal;}
+#news-wrapper {margin: 1em;}
+</style>
+<div id="htNews">
+<div id="news-wrapper">
+ <a href="http://xkcd.com/how-to/"><img id="book-cover" src="/how-to/cover/en-us.png"></a>
+ <h1 id="book-title"><span style="font-size: 32px; text-transform: none; font-weight: bold;">HOW TO</span><br />
+  Absurd Scientific Answers to<br>Common Real-world Problems
+ </h1>
+ <h2 id="announcement">Available <strong>September 3, 2019</strong>. <br />
+  Preorder:
+    <a href="https://www.amazon.com/How-Absurd-Scientific-Real-World-Problems/dp/0525537090/">Amazon</a>,
+    <a href="http://links.penguinrandomhouse.com/type/affiliate/isbn/9780525537090/siteID/8001/retailerid/2/trackingcode/PRH5522E62429">Barnes & Noble</a>,<br />
+    <a href="http://links.penguinrandomhouse.com/type/affiliate/isbn/9780525537090/siteID/8001/retailerid/6/trackingcode/penguinrandom">IndieBound</a>,
+    <a href="https://itunes.apple.com/us/book/how-to/id1451461524?mt=11">Apple Books</a>
+ </h2>
+</div>
+</div>
+<script>
+var client = new XMLHttpRequest();
+client.open("GET", "//c.xkcd.com/how-to/news", true);
+client.send();
+client.onreadystatechange = function() {
+  if(client.readyState == 4 && client.status == 200) {
+    document.getElementById("htNews").innerHTML = client.responseText;
+  }
+}
+</script>
+
+</div>
+</div>
+<div id="bgLeft" class="bg box"></div>
+<div id="bgRight" class="bg box"></div>
+</div>
+<div id="middleContainer" class="box">
+
+<div id="ctitle">Pixels</div>
+<ul class="comicNav">
+<li><a href="/1/">|&lt;</a></li>
+<li><a rel="prev" href="/1415/" accesskey="p">&lt; Prev</a></li>
+<li><a href="//c.xkcd.com/random/comic/">Random</a></li>
+<li><a rel="next" href="/1417/" accesskey="n">Next &gt;</a></li>
+<li><a href="/">&gt;|</a></li>
+</ul>
+<div id="comic">
+
+<iframe frameborder="0" scrolling="0" style="display: block; margin: 0 auto; border: none; overflow: hidden" width="600" height="600" src="//imgs.xkcd.com/turtledown/frame.html" id="comic-frame"></iframe>
+
+</div>
+<ul class="comicNav">
+<li><a href="/1/">|&lt;</a></li>
+<li><a rel="prev" href="/1415/" accesskey="p">&lt; Prev</a></li>
+<li><a href="//c.xkcd.com/random/comic/">Random</a></li>
+<li><a rel="next" href="/1417/" accesskey="n">Next &gt;</a></li>
+<li><a href="/">&gt;|</a></li>
+</ul>
+<br />
+Permanent link to this comic: https://xkcd.com/1416/<br />
+Image URL (for hotlinking/embedding): https://imgs.xkcd.com/comics/pixels.png
+<div id="transcript" style="display: none">[[A large picture of a person kneeling on the ground, stacking turtles.]]
+((In this strip, when you zoom into the panel, each pixel becomes its own panel. Each of those panels can be scrolled into, for the same effect. The story progresses as you scroll deeper.))
+[[The Earth as seen from space with the words BOOK LAUNCH.]]
+[[A stick-Randall holding a copy of &#39;What If?&#39; saying, &quot;So excited about my book launch!&quot;]]
+[[A copy of the cover of &#39;What If?&#39; labeled &quot;book.&quot;]]
+[[Stick-Randall is assembling parts from a box labeled &#39;rocket parts&#39; and preparing to &#39;launch&#39; his book.]]
+[[Various stages of assembly.]]
+[[A second person comes in, looks at SR&#39;s rocket set-up and says, &quot;Needs more struts.&quot;]]
+[[SR adds more struts.]]
+[[The rocket launches.]]
+[[A big cloud of smoke, which then dissipates.]]
+[[SR and the other person look skywards at the launched book.]]
+[[The book is shown leaving Earth&#39;s orbit.]]
+[[The other person turns to SR and says, &quot;I think that was the only one.&quot;]]
+[[The two walk away.]]
+((The panels after this are a random assortment of these mostly stand-alone panels.))
+[[A momma duck with several ducklings in a row behind her, labeled &#39;Evolution.&#39;]]
+[[The other person floating around in the sky.]]
+[[A stick figure with a sploshing bucket of water saying, &quot;I&#39;m gonna shut down the server!&quot;]]
+[[Two people walking along, one saying, &quot;But if the Time-Turners worked after Book 3, Rowling would have used one to go back and remove the Time Turner from Book 3.&quot;]]
+[[The code: 
+~$ du -s video
+
+4170882256
+~$ du -s video
+
+A lot.
+~$]]
+[[A cloud.]]
+[[A flock of birds.]]
+[[MU]]
+[[A pixel.]]
+[[A person using a computer on the floor.]]
+[[HOLISM]]
+[[Saturn]]
+[[An atom.]]
+[[Two people star-gazing on a hill.]]
+[[Person one says, &quot;Someone once told me the great kings of the past look down on us...&quot; Person two says, &quot;From the stars?&quot; The first person replies, &quot;Just in general.&quot;]]
+[[The start of Mario World 1-1.]]
+
+
+
+{{Title text: It&#39;s turtles all the way down.}}</div>
+</div>
+<div id="bottom" class="box">
+<img src="//imgs.xkcd.com/s/a899e84.jpg" width="520" height="100" alt="Selected Comics" usemap="#comicmap"/>
+<map id="comicmap" name="comicmap">
+<area shape="rect" coords="0,0,100,100" href="/150/" alt="Grownups"/>
+<area shape="rect" coords="104,0,204,100" href="/730/" alt="Circuit Diagram"/>
+<area shape="rect" coords="208,0,308,100" href="/162/" alt="Angular Momentum"/>
+<area shape="rect" coords="312,0,412,100" href="/688/" alt="Self-Description"/>
+<area shape="rect" coords="416,0,520,100" href="/556/" alt="Alternative Energy Revolution"/>
+</map>
+<br />
+<a href="//xkcd.com/1732/"><img border=0 src="//imgs.xkcd.com/s/temperature.png" width="520" height="100" alt="Earth temperature timeline"></a>
+<br />
+<div>
+<!--
+Search comic titles and transcripts:
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript">google.load('search', '1');google.setOnLoadCallback(function() {google.search.CustomSearchControl.attachAutoCompletion('012652707207066138651:zudjtuwe28q',document.getElementById('q'),'cse-search-box');});</script>
+<form action="//www.google.com/cse" id="cse-search-box">
+<div>
+<input type="hidden" name="cx" value="012652707207066138651:zudjtuwe28q"/>
+<input type="hidden" name="ie" value="UTF-8"/>
+<input type="text" name="q" id="q" size="31"/>
+<input type="submit" name="sa" value="Search"/>
+</div>
+</form>
+<script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+-->
+<a href="/rss.xml">RSS Feed</a> - <a href="/atom.xml">Atom Feed</a> - <a href="/newsletter/">Email</a>
+</div>
+<br />
+<div id="comicLinks">
+Comics I enjoy:<br/>
+        <a href="http://threewordphrase.com/">Three Word Phrase</a>,
+        <a href="http://www.smbc-comics.com/">SMBC</a>,
+        <a href="http://www.qwantz.com">Dinosaur Comics</a>,
+        <a href="http://oglaf.com/">Oglaf</a> (nsfw),
+        <a href="http://www.asofterworld.com">A Softer World</a>,
+        <a href="http://buttersafe.com/">Buttersafe</a>,
+        <a href="http://pbfcomics.com/">Perry Bible Fellowship</a>,
+        <a href="http://questionablecontent.net/">Questionable Content</a>,
+        <a href="http://www.buttercupfestival.com/">Buttercup Festival</a>,
+        <a href="http://www.mspaintadventures.com/?s=6&p=001901">Homestuck</a>,
+	<a href="http://www.jspowerhour.com/">Junior Scientist Power Hour</a>
+</div>
+<br />
+<div id="comicLinks">
+Other things:<br/>
+        <a href="https://medium.com/civic-tech-thoughts-from-joshdata/so-you-want-to-reform-democracy-7f3b1ef10597">Tips on technology and government</a>,<br /> 
+        <a href="https://www.nytimes.com/interactive/2017/climate/what-is-climate-change.html">Climate FAQ</a>,
+	<a href="https://twitter.com/KHayhoe">Katharine Hayhoe</a>
+</div>
+<br />
+<center>
+<div id="footnote" style="width:70%">xkcd.com is best viewed with Netscape Navigator 4.0 or below on a Pentium 3&plusmn;1 emulated in Javascript on an Apple IIGS<br />at a screen resolution of 1024x1. Please enable your ad blockers, disable high-heat drying, and remove your device<br />from Airplane Mode and set it to Boat Mode. For security reasons, please leave caps lock on while browsing.</div>
+</center>
+<div id="licenseText">
+<p>
+This work is licensed under a
+<a href="http://creativecommons.org/licenses/by-nc/2.5/">Creative Commons Attribution-NonCommercial 2.5 License</a>.
+</p><p>
+This means you're free to copy and share these comics (but not to sell them). <a rel="license" href="/license.html">More details</a>.</p>
+</div>
+</div>
+</body>
+<!-- Layout by Ian Clasbey, davean, and chromakode -->
+</html>
+

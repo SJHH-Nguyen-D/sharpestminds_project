@@ -30,6 +30,10 @@ Step 2: Download the web page
 '''
 
 '''
+Step 3: Download the web page
+'''
+
+'''
 Step 4: Save the Image and find the previous comic
 
 At this point, th eimage file of the comic is stored in the res variable. You need to write this image data to a file on the hard drive.
@@ -43,6 +47,13 @@ The code in the for loop writes out chunks of the image data (at most 100,000 by
 
 Afterward, the selector "a[ref="prev"]" identifies the <a> element with the rel attribute set to prev, and you can use this <a> element href attribute to get the
 previous comic's URL, which gets stores in the url variable. Then the while loop begins the entire download process again for this comic.
+'''
+
+'''
+Final notes:
+
+The Requestes and Beautiful Soup modules are great as long as you can figure out the URL you need to pass to requests.get(). However, sometimes, this isn't so easy to find.
+Or perhaps the website yoiu want your program to navigate requires you to log in first. The selenium module will give your programs the power to perform such sophisticated tasks.
 '''
 
 parser = argparse.ArgumentParser(description="Downloads XKCD comic image and stores them in a folder, starting from newest to oldest.")
