@@ -1,19 +1,25 @@
 # Constants to be used in the main script
-ROOT_DIR = os.path.abspath(__file__)
+ROOT_DIR = '/home/dennis/Documents/datascience_adventures/pythonscripts/datascience_job_portfolio/sharpestminds_project/'
 
-request_per_second_limit = 99
+WIKI = "https://en.wikipedia.org/wiki/"
 
-k_folds = 10
+language = "en"
 
-svm_params = {
+WIKI_SEARCH_TERMS = ["Second_Harvest_Toronto", "Insects_as_food", "Sustainable_food", "Insect_farming"]
+
+# request_per_second_limit = 99
+
+# k_folds = 10
+
+# svm_params = {
 	
-}
+# }
 
-adaboost_params = {
+# adaboost_params = {
 	
-}
+# }
 
-log_regression_params = {
+# log_regression_params = {
 	
-}
+# }
 
