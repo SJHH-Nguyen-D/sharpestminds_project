@@ -3,6 +3,11 @@ import pandas as pd
 import numpy as np 
 import wikipedia as w
 
+from constants import *
+
+def set_language():
+	w.set_lang(language)
+
 data_loader(datafile):
 	data = pd.read_csv(datafile, header=None, names=names)
 	print("Data Loaded")
@@ -10,7 +15,7 @@ data_loader(datafile):
 
 # Wikipedia Web Scraper
 def wiki_webscraper(list_of_search_terms):
-	
+	set_language
 	dataframe = pd.DataFrame(columns=['key_search_term', 'summary'])
 	# start off with getting the summary of the texts of the 
 	for search_term in list_of_search_urls:

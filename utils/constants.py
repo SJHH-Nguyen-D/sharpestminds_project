@@ -3,7 +3,7 @@ ROOT_DIR = '/home/dennis/Documents/datascience_adventures/pythonscripts/datascie
 
 WIKI = "https://en.wikipedia.org/wiki/"
 
-WEBSITE: "https://www.entomofarms.com/recipes/#our-recipes/"
+WEBSITE = "https://entomofarms.com/recipes/#our-recipes/"
 
 language = "en"
 

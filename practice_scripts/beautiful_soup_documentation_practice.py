@@ -36,6 +36,9 @@ def has_class_but_no_id(tag):
 def not_lacie(href):
 	return href and not re.compile("lacie").search(href)
 
+def lacie(href):
+	return re.compile("lacie").search(href)
+
 # You can create a function as complicated as you want
 # This function returns True if the tag is surrounded by strings
 # def surrounded_by_strings(tag):
@@ -70,7 +73,7 @@ def main():
 		print(tag.name)
 
 	# This snippet finds all tags whose names contain the letter t
-	print("These are the names of the tages that contain the letter t")
+	print("These are the names of the tags that contain the letter t")
 	for tag in soup.find_all(re.compile("t")):
 		print(tag.name)
 
@@ -85,19 +88,39 @@ def main():
 	# Using the has_class_but_no_id custom function
 	print("This is the result of adding in our own filter function to to the soup: \n{}".format(soup.find_all(has_class_but_no_id)))
 
+	website = "http://example.com/"
+	expression = "lacie"
+
 	# Using the href attribute value that matches this regular expression evaluation
-	print("This is the result of filtering by not_lacie for the href attribute: \n{}".format(soup.find_all(href=not_lacie)))
+	print("This is the result of filtering by not_lacie for the href attribute: \n{}".format(soup.a.find_all(href=not_lacie)))
 
-	# Using the surrounded_by_strings custom function to return a tags that are surroudned by strings
-	# print("This is the list of tags that are surrounded by strings: \n{}".format(soup.find_all(surrounded_by_strings)))
+	# Using the href attribute value that matches this regular expression evaluation
+	# print("This is my try at my own custom expression: \n{}".format(soup.find_all("a", href=website+"lacie")))
 
-	# View the string contents within an element tag
-	print("This shows the string contents of the selected elements: \n{} ".format(soup.head.contents)) # returns a list
+		# Using the href attribute value that matches this regular expression evaluation
+	print("This is my try at my own custom expression: \n{}".format(soup.select('a[href$="lacie"]')))
+	
+	# Gets only the text from the story
+	print(soup.get_text())
 
-	# View the children elements of a selected elements as a generator object
-	print("This is the children of the the <{}> tag".format(soup.head.name))
-	for i in soup.head.contents:
-		print("This is one of the contents of the head generator object: \n{}".format(i.string))
+	listoflinks = []
+
+	# Gets only the links
+	for link in soup.find_all("a"):
+		if soup.select['a[href^="http://example.com/"]']:
+			listoflinks.append(link.get("href"))
+
+	print(listoflinks)
+	# # Using the surrounded_by_strings custom function to return a tags that are surroudned by strings
+	# # print("This is the list of tags that are surrounded by strings: \n{}".format(soup.find_all(surrounded_by_strings)))
+
+	# # View the string contents within an element tag
+	# print("This shows the string contents of the selected elements: \n{} ".format(soup.head.contents)) # returns a list
+
+	# # View the children elements of a selected elements as a generator object
+	# print("This is the children of the the <{}> tag".format(soup.head.name))
+	# for i in soup.head.contents:
+	# 	print("This is one of the contents of the head generator object: \n{}".format(i.string))
 
 
 if __name__ == "__main__":

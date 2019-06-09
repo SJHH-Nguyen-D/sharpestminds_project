@@ -1,6 +1,6 @@
 import pandas as pd 
 import os, requests, plotly, argparse, sys, wikipedia, json
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
 import wikipedia as w
 
 from utils.constants import *
@@ -22,68 +22,50 @@ from utils.constants import *
 # TODO: EDA
 # TODO: Modelling
 
-# TO THINK ABOUT: break tasks into subtasks
-
-'''
-This main script will be used to put everything together. 
-
-I eventually want to put the data acquisition and prep scripts into the utils folder
-'''
-
-def set_language():
-	w.set_lang(language)
-
 def prepare_data_directory():
-	data_directory = os.path.join(ROOT_DIR, "wikidata")
+	data_directory = os.path.join(ROOT_DIR, "web_scraped_data")
 	if not os.path.exists(data_directory):
 		os.mkdir(data_directory)
 
-def soupify(html):
-	soup = bs(html, 'html.parser')
-	pretty_soup = soup.prettify()
-	return soup, pretty_soup
+def soupify(website):
+	# Get the html through the Requests module
+	html = requests.get(website)
+	html.raise_for_status()
 
-def extract_recipes(soup, tag):
-	soup.
-	return elements
+	# Turn the Website into a soup
+	soup = bs(html.text, 'lxml')
+	return soup
 
-def write_scraped_to_json(dataframe):
-	set_language()
-	# write to json instead of pandas.... back to the drawing board
-	with json.open(os.path.join(data_directory, ".json"), sep=',', encoding='utf-8') as jsonwriter:
-		json = 
-	return json
+def extract_recipes(website):
+	soup = soupify(website)
 
-# class WebScraper():
-# 	def __init__(self, url, dataset_directory):
-# 		self.url = url
-# 		self.dataset_directory = dataset_directory
+	list_of_hrefs = []
 
-# 	def scrape_to_json():
+	for link in soup.find_all("a"):
+		list_of_hrefs.append(link.get('href'))
 
+	pattern = "https://entomofarms.com/featured_item"
+	recipe_links = [i if pattern in i for i in list_of_hrefs[i]]
+
+	recipe_links_list = soup.select('a[href^="https://entomofarms.com/featured_item"]')
+	print("This is list of links: \n{}".format(recipe_links_list))
+	print("This is the list: \n{}".format(recipe_links))
+	return recipe_links_list
+
+# TODO: To JSON files
+# def write_scraped_to_json(dataframe):
+# 	# write to json instead of pandas.... back to the drawing board
+# 	with json.open(os.path.join(data_directory, ".json"), sep=',', encoding='utf-8') as jsonwriter:
+# 		json = ""
+# 	return json
 
 def main():
-	soup, _  = soupify(WEBSITE)
 	prepare_data_directory()
-	wiki_webscraper(WIKI_SEARCH_TERMS)
-	print("Run Complete")
-
-
-'''
-This code uses requests.get() to download the main page from a site.
-
-Use this to pass to beautifulsoup () to soupify it.
-
-Use then can perform a variety of operations on this soup object including:
-	 - select
-	 - prettify
-'''
+	extract_recipes(WEBSITE)
+	print("Run Complete!!!")
 
 if __name__ == "__main__":
 	main()
-
-links in the skype
-
 
 # find some dataset to practice data wrangling and cleaning on by next week for wednesday
 # have the scraper done by Sunday
