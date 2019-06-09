@@ -30,32 +30,40 @@ This main script will be used to put everything together.
 I eventually want to put the data acquisition and prep scripts into the utils folder
 '''
 
-w.set_lang(language)
+def set_language():
+	w.set_lang(language)
 
 def prepare_data_directory():
 	data_directory = os.path.join(ROOT_DIR, "wikidata")
 	if not os.path.exists(data_directory):
 		os.mkdir(data_directory)
 
+def soupify(html):
+	soup = bs(html, 'html.parser')
+	pretty_soup = soup.prettify()
+	return soup, pretty_soup
+
+def extract_recipes(soup, tag):
+	soup.
+	return elements
+
 def write_scraped_to_json(dataframe):
+	set_language()
 	# write to json instead of pandas.... back to the drawing board
 	with json.open(os.path.join(data_directory, ".json"), sep=',', encoding='utf-8') as jsonwriter:
 		json = 
 	return json
 
-# Wikipedia Web Scraper
-def wiki_webscraper(list_of_search_terms):
-	dataframe = pd.DataFrame(columns=['key_search_term', 'summary'])
-	# start off with getting the summary of the texts of the 
-	for search_term in list_of_search_urls:
-		term_summary = w.summary(search_term, sentences=10)
-		# res = requests.get(list_of_search_urls[search_link])
-		# res.raise_for_status()
-		# soup = BeautifulSoup(res.text)
-		df.loc[list_of_search_urls.index(search_term)] = [search_term, term_summary]
-		return json
+# class WebScraper():
+# 	def __init__(self, url, dataset_directory):
+# 		self.url = url
+# 		self.dataset_directory = dataset_directory
+
+# 	def scrape_to_json():
+
 
 def main():
+	soup, _  = soupify(WEBSITE)
 	prepare_data_directory()
 	wiki_webscraper(WIKI_SEARCH_TERMS)
 	print("Run Complete")
@@ -77,6 +85,6 @@ if __name__ == "__main__":
 links in the skype
 
 
-* find some dataset to practice data wrangling and cleaning on by next week for wednesday
-$ have the scraper done by Sunday
-* see if I can get a simple scraper to get the recipes from the the json feasible
+# find some dataset to practice data wrangling and cleaning on by next week for wednesday
+# have the scraper done by Sunday
+# see if I can get a simple scraper to get the recipes from the the json feasible

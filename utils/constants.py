@@ -3,23 +3,8 @@ ROOT_DIR = '/home/dennis/Documents/datascience_adventures/pythonscripts/datascie
 
 WIKI = "https://en.wikipedia.org/wiki/"
 
+WEBSITE: "https://www.entomofarms.com/recipes/#our-recipes/"
+
 language = "en"
 
 WIKI_SEARCH_TERMS = ["Second_Harvest_Toronto", "Insects_as_food", "Sustainable_food", "Insect_farming"]
-
-# request_per_second_limit = 99
-
-# k_folds = 10
-
-# svm_params = {
-	
-# }
-
-# adaboost_params = {
-	
-# }
-
-# log_regression_params = {
-	
-# }
-
