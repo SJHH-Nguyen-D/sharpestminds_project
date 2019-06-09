@@ -60,7 +60,7 @@ def main():
 	# print("This is the result of next sibling for soup: {}".format(soup.p.next_sibling)) # returns a navigablestring object
 	
 	# the .find_all() function returns a list of the elements that match the specified parameters
-	z = find_all_a_tag = soup.find_all("a") # returns a list of elements
+	find_all_a_tag = soup.find_all("a") # returns a list of elements
 
 	# you can use the re module to pass in regular expressions to beautifulsoup
 	# you can pass in a regular expression object directly to the .find_all() method of the soup
@@ -90,6 +90,14 @@ def main():
 
 	# Using the surrounded_by_strings custom function to return a tags that are surroudned by strings
 	# print("This is the list of tags that are surrounded by strings: \n{}".format(soup.find_all(surrounded_by_strings)))
+
+	# View the string contents within an element tag
+	print("This shows the string contents of the selected elements: \n{} ".format(soup.head.contents)) # returns a list
+
+	# View the children elements of a selected elements as a generator object
+	print("This is the children of the the <{}> tag".format(soup.head.name))
+	for i in soup.head.contents:
+		print("This is one of the contents of the head generator object: \n{}".format(i.string))
 
 
 if __name__ == "__main__":
