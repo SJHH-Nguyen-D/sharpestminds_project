@@ -47,14 +47,14 @@ def extract_recipes_links(website):
 	
 	return hrefs
 
-def recipes_to_json_file():
+def recipes_to_json_file(website):
 	hrefs = extract_recipes_links(website)
 
 	scraped_recipe_data = {}
 
 	for recipe_link in hrefs:
 		recipe_soup = soupify(recipe_link)
-		recipe_name = soup.h1.string
+		recipe_name = recipe_soup.string
 		print(recipe_name)
 
 		# TODO: Store the structured results of the scrape into a dictionary
@@ -62,15 +62,16 @@ def recipes_to_json_file():
 		# 2. Have 
 
 		# TODO: Write out dictionary to a json file on disk with the appropriate name 
-		with open(os.path.join(data_directory, {}+"_recipe.json"), "w").format(str(recipe_name)) as json_file:
-			json.dump(scraped_recipe_data, json_file)
+		# with open(os.path.join(data_directory, {}+"_recipe.json"), "w").format(str(recipe_name)) as json_file:
+		# 	json.dump(scraped_recipe_data, json_file)
 
 def main():
+
 	prepare_data_directory()
 
-	extract_recipes_links(website).recipes_to_json_file()
+	# extract_recipes_links(WEBSITE).recipes_to_json_file()
 
-	recipes_to_json_file()
+	recipes_to_json_file(WEBSITE)
 
 	print("Run Complete!!!")
 
