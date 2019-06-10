@@ -1,5 +1,4 @@
-import pandas as pd 
-import os, requests, plotly, argparse, sys, wikipedia, json
+import os, requests, plotly, argparse, sys, wikipedia, json, re
 from bs4 import BeautifulSoup as bs
 import wikipedia as w
 
@@ -34,34 +33,45 @@ def soupify(website):
 
 	# Turn the Website into a soup
 	soup = bs(html.text, 'lxml')
+
 	return soup
 
-def extract_recipes(website):
+def extract_recipes_links(website):
+	
+	pattern = website[:24] + "featured_item" # pattern to search href for
 	soup = soupify(website)
 
-	list_of_hrefs = []
+	# returns <class 'bs4.element.ResultSet'> from the .find_all() method
+	# To have to use the .get('href') method to get the specified links
+	hrefs = [ link.get('href') for link in soup.find_all("a", href=re.compile(pattern)) ]
+	
+	return hrefs
 
-	for link in soup.find_all("a"):
-		list_of_hrefs.append(link.get('href'))
+def recipes_to_json_file():
+	hrefs = extract_recipes_links(website)
 
-	pattern = "https://entomofarms.com/featured_item"
-	recipe_links = [i if pattern in i for i in list_of_hrefs[i]]
+	scraped_recipe_data = {}
 
-	recipe_links_list = soup.select('a[href^="https://entomofarms.com/featured_item"]')
-	print("This is list of links: \n{}".format(recipe_links_list))
-	print("This is the list: \n{}".format(recipe_links))
-	return recipe_links_list
+	for recipe_link in hrefs:
+		recipe_soup = soupify(recipe_link)
+		recipe_name = soup.h1.string
+		print(recipe_name)
 
-# TODO: To JSON files
-# def write_scraped_to_json(dataframe):
-# 	# write to json instead of pandas.... back to the drawing board
-# 	with json.open(os.path.join(data_directory, ".json"), sep=',', encoding='utf-8') as jsonwriter:
-# 		json = ""
-# 	return json
+		# TODO: Store the structured results of the scrape into a dictionary
+		# 1. Store the scraped data into a scraped_recipe_data dictionary
+		# 2. Have 
+
+		# TODO: Write out dictionary to a json file on disk with the appropriate name 
+		with open(os.path.join(data_directory, {}+"_recipe.json"), "w").format(str(recipe_name)) as json_file:
+			json.dump(scraped_recipe_data, json_file)
 
 def main():
 	prepare_data_directory()
-	extract_recipes(WEBSITE)
+
+	extract_recipes_links(website).recipes_to_json_file()
+
+	recipes_to_json_file()
+
 	print("Run Complete!!!")
 
 if __name__ == "__main__":
