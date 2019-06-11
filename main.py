@@ -54,7 +54,15 @@ def recipes_to_json_file(website):
 
 	for recipe_link in hrefs:
 		recipe_soup = soupify(recipe_link)
-		recipe_name = recipe_soup.string
+		recipe_name = recipe_soup.h1.string
+
+		# Add into the dictionary
+		scraped_recipe_data["recipe"] = recipe_name
+
+		# each recipe has: ingredients, directions, tags
+		scraped_recipe_data["recipe"]["ingredients"] = [ i for i in recipe_soup.find_all("h2", string="Ingredients:").string ]
+		scraped_recipe_data["recipe"]["instructions"] = [ i for i in recipe_soup.find_all("h2", string="Directions:").string ]
+		scraped_recipe_data["recipe"]["tags"] = [ i for i in recipe_soup.find_all("span").string ]
 		print(recipe_name)
 
 		# TODO: Store the structured results of the scrape into a dictionary
