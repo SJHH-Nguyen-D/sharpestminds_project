@@ -57,70 +57,72 @@ def main():
 	for element in middle_a_tag.previous_elements:
 		print("#######These are the previous elements of the middle a tag element#######\n{}".format(repr(element)))
 
-	# use .next_element and .previous_element on a bs4.element.Tag to move in between tags
-	# print("This is the result the title tag for the soup: {}".format(soup.title)) # returns a navigablestring object
-	# print("This is the result of next element for soup: {}".format(soup.p.next_element)) # returns a navigablestring object
-	# print("This is the result of next sibling for soup: {}".format(soup.p.next_sibling)) # returns a navigablestring object
+	print(soup.find_all("a", href=re.compile(^b)))
+
+	# # use .next_element and .previous_element on a bs4.element.Tag to move in between tags
+	# # print("This is the result the title tag for the soup: {}".format(soup.title)) # returns a navigablestring object
+	# # print("This is the result of next element for soup: {}".format(soup.p.next_element)) # returns a navigablestring object
+	# # print("This is the result of next sibling for soup: {}".format(soup.p.next_sibling)) # returns a navigablestring object
 	
-	# the .find_all() function returns a list of the elements that match the specified parameters
-	find_all_a_tag = soup.find_all("a") # returns a list of elements
+	# # the .find_all() function returns a list of the elements that match the specified parameters
+	# find_all_a_tag = soup.find_all("a") # returns a list of elements
 
-	# you can use the re module to pass in regular expressions to beautifulsoup
-	# you can pass in a regular expression object directly to the .find_all() method of the soup
-	# this snippet will return a list of all elements that start with the letter "b"
-	print("These are the names of the tags that start with the letter b:")
-	for tag in soup.find_all(re.compile("^b")):
-		print(tag.name)
+	# # you can use the re module to pass in regular expressions to beautifulsoup
+	# # you can pass in a regular expression object directly to the .find_all() method of the soup
+	# # this snippet will return a list of all elements that start with the letter "b"
+	# print("These are the names of the tags that start with the letter b:")
+	# for tag in soup.find_all(re.compile("^b")):
+	# 	print(tag.name)
 
-	# This snippet finds all tags whose names contain the letter t
-	print("These are the names of the tags that contain the letter t")
-	for tag in soup.find_all(re.compile("t")):
-		print(tag.name)
+	# # This snippet finds all tags whose names contain the letter t
+	# print("These are the names of the tags that contain the letter t")
+	# for tag in soup.find_all(re.compile("t")):
+	# 	print(tag.name)
 
-	# This snippet will return a LIST of tags that are contained within the list. Both item a, and item b containees will be returned as a list of elements
-	list_to_look = ["html", "a"]
-	y = soup.find_all(list_to_look)
-	print("This is the list of elements with tags contained in the list_to_look: \n{}".format(y))
+	# # This snippet will return a LIST of tags that are contained within the list. Both item a, and item b containees will be returned as a list of elements
+	# list_to_look = ["html", "a"]
+	# y = soup.find_all(list_to_look)
+	# print("This is the list of elements with tags contained in the list_to_look: \n{}".format(y))
 
-	# The value True matches everything that it cn. This code finds all the tags in the document, but none of the text strings contained inside
-	print("This is the result of putting True to find_all: \n{}".format(soup.find_all(True)))
+	# # The value True matches everything that it cn. This code finds all the tags in the document, but none of the text strings contained inside
+	# print("This is the result of putting True to find_all: \n{}".format(soup.find_all(True)))
 
-	# Using the has_class_but_no_id custom function
-	print("This is the result of adding in our own filter function to to the soup: \n{}".format(soup.find_all(has_class_but_no_id)))
+	# # Using the has_class_but_no_id custom function
+	# print("This is the result of adding in our own filter function to to the soup: \n{}".format(soup.find_all(has_class_but_no_id)))
 
-	website = "http://example.com/"
-	expression = "lacie"
+	# website = "http://example.com/"
+	# expression = "lacie"
 
-	# Using the href attribute value that matches this regular expression evaluation
-	print("This is the result of filtering by not_lacie for the href attribute: \n{}".format(soup.a.find_all(href=not_lacie)))
+	# # Using the href attribute value that matches this regular expression evaluation
+	# print("This is the result of filtering by not_lacie for the href attribute: \n{}".format(soup.a.find_all(href=not_lacie)))
 
-	# Using the href attribute value that matches this regular expression evaluation
-	# print("This is my try at my own custom expression: \n{}".format(soup.find_all("a", href=website+"lacie")))
+	# # Using the href attribute value that matches this regular expression evaluation
+	# # print("This is my try at my own custom expression: \n{}".format(soup.find_all("a", href=website+"lacie")))
 
-		# Using the href attribute value that matches this regular expression evaluation
-	print("This is my try at my own custom expression: \n{}".format(soup.select('a[href$="lacie"]')))
+	# 	# Using the href attribute value that matches this regular expression evaluation
+	# print("This is my try at my own custom expression: \n{}".format(soup.select('a[href$="lacie"]')))
 	
-	# Gets only the text from the story
-	print(soup.get_text())
+	# # Gets only the text from the story
+	# print(soup.get_text())
 
-	listoflinks = []
+	# listoflinks = []
 
-	# Gets only the links
-	for link in soup.find_all("a"):
-		if soup.select['a[href^="http://example.com/"]']:
-			listoflinks.append(link.get("href"))
+	# # Gets only the links
+	# for link in soup.find_all("a"):
+	# 	if soup.select['a[href^="http://example.com/"]']:
+	# 		listoflinks.append(link.get("href"))
 
-	print(listoflinks)
-	# # Using the surrounded_by_strings custom function to return a tags that are surroudned by strings
-	# # print("This is the list of tags that are surrounded by strings: \n{}".format(soup.find_all(surrounded_by_strings)))
+	# print(listoflinks)
+	# # # Using the surrounded_by_strings custom function to return a tags that are surroudned by strings
+	# # # print("This is the list of tags that are surrounded by strings: \n{}".format(soup.find_all(surrounded_by_strings)))
 
-	# # View the string contents within an element tag
-	# print("This shows the string contents of the selected elements: \n{} ".format(soup.head.contents)) # returns a list
+	# # # View the string contents within an element tag
+	# # print("This shows the string contents of the selected elements: \n{} ".format(soup.head.contents)) # returns a list
 
-	# # View the children elements of a selected elements as a generator object
-	# print("This is the children of the the <{}> tag".format(soup.head.name))
-	# for i in soup.head.contents:
-	# 	print("This is one of the contents of the head generator object: \n{}".format(i.string))
+	# # # View the children elements of a selected elements as a generator object
+	# # print("This is the children of the the <{}> tag".format(soup.head.name))
+	# # for i in soup.head.contents:
+	# # 	print("This is one of the contents of the head generator object: \n{}".format(i.string))
 
 
 if __name__ == "__main__":
