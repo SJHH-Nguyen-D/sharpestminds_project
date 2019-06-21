@@ -44,3 +44,29 @@ for i in range(10):
 ```
 
 5. Know basic python data types and when to use them. 
+strings, list, dictionaries, tuples, generators. Not only know how to use them but know how to index and interate over each one. 
+
+```python3
+# Lists
+my_list = [1, 2, 3, 4, 5]
+for i in my_list:
+	print(i)
+
+# Tuples
+my_tup = (1, 2, 3, 4, 5)
+for i in my_tup:
+	print(i)
+
+# Dictionary
+my_dict = {"name": "Bronn", "age": "41", "occupation": "Master of Coin"}
+for key, val in my_dict.iteritems():
+	print("My {} is {}".format(key, val))
+
+# Set
+
+my_set = {10, 10, 10, 20, 20, 30, 32, 11, 10}
+for i in my_set:
+	print(i)
+```
+
+6. 
