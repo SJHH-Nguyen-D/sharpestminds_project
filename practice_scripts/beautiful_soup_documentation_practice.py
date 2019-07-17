@@ -93,7 +93,7 @@ def main():
 	# website = "http://example.com/"
 	# expression = "lacie"
 
-	# # Using the href attribute value that matches this regular expression evaluation
+	# # Using the href attribute value that matches this regular expression evaluation to find and return all tags with that contain that value
 	# print("This is the result of filtering by not_lacie for the href attribute: \n{}".format(soup.a.find_all(href=not_lacie)))
 
 	# # Using the href attribute value that matches this regular expression evaluation

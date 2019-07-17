@@ -22,11 +22,15 @@ from utils.constants import *
 # TODO: Modelling
 
 def prepare_data_directory():
+	''' Creates a directory for putting the scraped data into'''
+
 	data_directory = os.path.join(ROOT_DIR, "web_scraped_data")
 	if not os.path.exists(data_directory):
 		os.mkdir(data_directory)
 
 def soupify(website):
+	''' Turn html.text into a BeautifulSoup object '''
+
 	# Get the html through the Requests module
 	html = requests.get(website)
 	html.raise_for_status()
@@ -37,7 +41,7 @@ def soupify(website):
 	return soup
 
 def extract_recipes_links(website):
-	
+	''' Creates a list of all the links given a website'''
 	pattern = website[:24] + "featured_item" # pattern to search href for
 	soup = soupify(website)
 
@@ -48,6 +52,8 @@ def extract_recipes_links(website):
 	return hrefs
 
 def recipes_to_json_file(website):
+	''' Using the list of links, parse the recipe components into a json file 
+	and write to disk'''
 	hrefs = extract_recipes_links(website)
 
 	scraped_recipe_data = {}
