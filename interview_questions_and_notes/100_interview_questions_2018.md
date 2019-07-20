@@ -120,20 +120,27 @@ you can do this fo select features.
 ```
 12) Is it possible to plot histogram in Pandas without calling Matplotlib? If yes, then write the code to plot the histogram?
 ```
-
-
+df.plot(kind="hist")
+df.iloc[:, 7].plot(kind="hist")
 ```
 13) What are the possible ways to load an array from a text data file in Python? How can the efficiency of the code to load data file be improved?
-
-	numpy.loadtxt ()
-
+```
+import numpy
+from pandas import Series
+numpy.loadtxt(datafile)
+data = Series(datafile.txt)
+```
 14) Which is the standard data missing marker used in Pandas?
-
-	NaN
-
+```
+NaN
+```
 15) Why you should use NumPy arrays instead of nested Python lists?
 ```
+NumPy's arrays are more compact than Python lists -- a list of lists as you describe, in Python, would take at least 20 MB or so, while a NumPy 3D array with single-precision floats in the cells would fit in 4 MB. Access in reading and writing items is also faster with NumPy.
 
+Maybe you don't care that much for just a million cells, but you definitely would for a billion cells -- neither approach would fit in a 32-bit architecture, but with 64-bit builds NumPy would get away with 4 GB or so, Python alone would need at least about 12 GB (lots of pointers which double in size) -- a much costlier piece of hardware!
+
+The difference is mostly due to "indirectness" -- a Python list is an array of pointers to Python objects, at least 4 bytes per pointer plus 16 bytes for even the smallest Python object (4 for type pointer, 4 for reference count, 4 for value -- and the memory allocators rounds up to 16). A NumPy array is an array of uniform values -- single-precision numbers takes 4 bytes each, double-precision ones, 8 bytes. Less flexible, but you pay substantially for the flexibility of standard Python lists!
 ```
 16) What is the preferred method to check for an empty array in NumPy?
 ```
