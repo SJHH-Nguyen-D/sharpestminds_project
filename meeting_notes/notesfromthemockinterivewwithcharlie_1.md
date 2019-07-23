@@ -67,6 +67,8 @@ Deep learning. works based on back propagation using the chain rule and optimize
 
 Deliverables:
 
+code some ML algorithms from scratch to remember how they work from the inside again
+
 read up the resources. that he gave you:
 https://www.deeplearingbook.org/contexts/ml.html
 https://www.deeplearingbook.org/contexts/prob.html
