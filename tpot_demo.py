@@ -19,14 +19,11 @@ wine = load_wine()
 X = wine.data
 y = wine.target
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=123
+)
 
-tpot = TPOTClassifier(
-	generations=5, 
-	population_size=50, 
-	verbosity=2, 
-	n_jobs=-1
-	)
+tpot = TPOTClassifier(generations=5, population_size=50, verbosity=2, n_jobs=-1)
 
 prec_rec_fsc_sup = ["precision", "recall", "fscore", "support"]
 
@@ -41,7 +38,7 @@ print(f"Total runtime: {runtime}s")
 print("\nConfusion Matrix\n{}\n".format(confusion_matrix(y_test, y_pred)))
 
 for met, val in zip(prec_rec_fsc_sup, precision_recall_fscore_support(y_test, y_pred)):
-	pprint("{}: {}".format(met, val))
+    pprint("{}: {}".format(met, val))
 
 print(accuracy_score(y_test, y_pred))
 
@@ -68,6 +65,7 @@ Best Accuracy Score: 0.9928571428571429
 #
 
 import autosklearn.classification
+
 cls = autosklearn.classification.AutoSklearnClassifier()
 cls.fit(X_train, y_train)
 y_pred = cls.predict(X_test)
