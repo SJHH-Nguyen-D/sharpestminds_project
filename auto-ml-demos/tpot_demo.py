@@ -14,33 +14,42 @@ from sklearn.metrics import (
 )
 from pprint import pprint
 
-# load dataset
-wine = load_wine()
-X = wine.data
-y = wine.target
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=123
-)
+datasetname = ["iris", "wine"]
+for dsname in datasetname:
+	
+	ds = None
 
-tpot = TPOTClassifier(generations=5, population_size=50, verbosity=2, n_jobs=-1)
+	if dsname == "iris":
+		ds = load_iris()
 
-prec_rec_fsc_sup = ["precision", "recall", "fscore", "support"]
+	elif dsname == "wine":
+		ds = load_wine()
 
-start_time = timeit.default_timer()
-tpot.fit(X_train, y_train)
-y_pred = tpot.predict(X_test)
-end_time = timeit.default_timer()
-runtime = end_time - start_time
-print(f"Total runtime: {runtime}s")
+	X = ds.data
+	y = ds.target
+
+	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
+
+	tpot = TPOTClassifier(generations=5, population_size=50, verbosity=2, n_jobs=-1)
+
+	prec_rec_fsc_sup = ["precision", "recall", "fscore", "support"]
+
+	start_time = timeit.default_timer()
+	tpot.fit(X_train, y_train)
+	y_pred = tpot.predict(X_test)
+	end_time = timeit.default_timer()
+	runtime = end_time - start_time
+	print(f"Total runtime for the {name} dataset: {runtime}s")
 
 
-print("\nConfusion Matrix\n{}\n".format(confusion_matrix(y_test, y_pred)))
+	print("\nConfusion Matrix for the {} dataset\n{}\n".format(confusion_matrix(name, y_test, y_pred)))
 
-for met, val in zip(prec_rec_fsc_sup, precision_recall_fscore_support(y_test, y_pred)):
-    pprint("{}: {}".format(met, val))
+	print("Precision/Recall/FScore/Support for the {} dataset".format(name))
+	for met, val in zip(prec_rec_fsc_sup, precision_recall_fscore_support(y_test, y_pred)):
+	    pprint("{}: {}".format(met, val))
 
-print(accuracy_score(y_test, y_pred))
+	print("Accuracy score for the {} dataset: {}".format(name, accuracy_score(y_test, y_pred)))
 
 """
 Best Pipelines (Always random due to stochasticity)
@@ -61,11 +70,3 @@ Total runtime: 63.685036884999136s
 Average Accuracy Score: 0.9722222222222222
 Best Accuracy Score: 0.9928571428571429
 """
-
-#
-
-import autosklearn.classification
-
-cls = autosklearn.classification.AutoSklearnClassifier()
-cls.fit(X_train, y_train)
-y_pred = cls.predict(X_test)
