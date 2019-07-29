@@ -102,66 +102,70 @@ Regularization is one of three popular methods to reduce overfitting of a model,
 The process of regularization can also be thought of as desensitization
 
 With regularization, we try to find a new model with new parameters that doesn't overfit to the training data as well.
-In other words, we introduce a SMALL AMOUNT OF BIAS into how the NEW LINE is fit to the data. But in return for that small amount of BIAS, we can get a significant DROP IN VARIANCE. Ultimately, this reduces the overfitting on the training set while simultateously providing a better fit on the new testing data. In other words, by starting with a slightly worse fit, (ridge) regression can provide better long term preductions
+In other words, we introduce a SMALL AMOUNT OF BIAS into how the NEW LINE is fit to the data. But in return for that small amount of BIAS, we can get a significant DROP IN VARIANCE. Ultimately, this reduces the overfitting on the training set while simultateously providing a better fit on the new testing data. In other words, by starting with a slightly worse fit, (L.A.S.S.O.) regression can provide better long term preductions
 
 Regularization helps to do this by introducing a penalty to the model parameters (weights) of the model, and that is multiplied by a lambda coefficient (which determines how severe this penalty is treated), based on some error/cost/loss function.
 
 ```
 
-## What is L1-Ridge Regularization/Regression
+## What is L1-LASSO Regularization/Regression
 
 ```
-Ridge Regression is also known as L1 regression or L1 regularization. Typically for zero-ing out the learned feature coefficients for a learning model, meaning that by selecting the features that are not zeroed out, and dropping the use of the zeroed out features in the model, we can eliminate some of the complexity of the model to reduce bias in the model so that we can better learn the relationship between the model parameters, the feature variables and the target variable.
+One way to remember LASSO from Ridge regression is that LASSO starts with an L so it goes first in the order of remembering which type of regression is which. It also helps to remmeber that L1-regularization is the type of regularization that takes the absolute value of the penalty term and NOT the squared penalty term.
+
+You can remember that it is Ridge Regression because a ridge is a mountain and you can easily imagine a mountain with two peaks and those are your ridges. You can also remember that Ridge Regression because there are 2 R's and there is the number 2 in L2-Ridge Regression, which is also a pointer to the fact that the penalty term is squared and multiplied by the lambda regularization term (exponent 2).
+
+L.A.S.S.O. Regression is also known as L1 regression or L1 regularization. Typically for zero-ing out the learned feature coefficients for a learning model, meaning that by selecting the features that are not zeroed out, and dropping the use of the zeroed out features in the model, we can eliminate some of the complexity of the model to reduce bias in the model so that we can better learn the relationship between the model parameters, the feature variables and the target variable.
 
 When least squares or linear regression determines what values the parameters of the model it should take, it tries to minimize it's loss/cost/error function:
 
 	sum of squared residuals.
 
-In contrast, L1-Ridge regression tries to minimize it's cost function (the curly braces are just there to make the components of the equation more readable). The slope is the same as the weight/parameter coefficient of feature variable: 
+In contrast, L1-L.A.S.S.O. regression tries to minimize it's cost function (the curly braces are just there to make the components of the equation more readable). The slope is the same as the weight/parameter coefficient of feature variable: 
 	
-	{ sum of squared residuals }  + { lambda * slope**2 }
+	{ sum of squared residuals }  + { lambda * sum(slope**2) }
 
 	AKA 
 
-	{ sum of squared residuals }  + { lambda * learned_feature_weight**2 }
+	{ sum of squared residuals }  + { lambda * sum(learned_feature_weight**2) }
 
 	AKA
 
-	{ sum of squared residuals }  + { Ridge Regression Weighted Penalty }
+	{ sum of squared residuals }  + { L.A.S.S.O. Regression Weighted Penalty }
 
 # Lambda
-Lambda is a regularization coefficient common to both L1-Ridge Regression and L2-LASSO regression. The {slope*2} component adds a PENALTY to the model parameters in traditional least squares cost function and {lambda} determines how severe the penalty is. Lambda can take on any value from 0 to positive infinity. If lambda is 0, then the ridge regression penalty is also 0. As we increase the the regularization parameter, we increase the effect of the penalty parameter, and thus, the line because less and less sensitive to the effects of the feature inputs. If lambda is infinite, then we are left with a horizontal line, not fitting to any of the data. 
+Lambda is a regularization coefficient common to both L1-L.A.S.S.O. Regression and L2-Ridge regression. The {slope*2} component adds a PENALTY to the model parameters in traditional least squares cost function and {lambda} determines how severe the penalty is. Lambda can take on any value from 0 to positive infinity. If lambda is 0, then the L.A.S.S.O. regression penalty is also 0. As we increase the the regularization parameter, we increase the effect of the penalty parameter, and thus, the line because less and less sensitive to the effects of the feature inputs. If lambda is infinite, then we are left with a horizontal line, not fitting to any of the data. 
 
 How do we decide what value to give lambda? We just try a bunch of values for lambdaand use cross-validation, typically 10 fold cross validation, to determine which ones result in the LOWEST VARIANCE between training and dev datasets.
 
 
-# Ridge Regression Penalty
-In this example, the {sum of squared residuals} for the *OLS regression line* is 1.69, and for the *L1-Ridge Regression line*, the {sum of squared residuals + L1-Ridge Regression weighted Penalty}  is 0.74. Thus if we wanted to minimize the sum of the squared residuals + the Ridge Regression weighted penalty, we would choose the L1-Ridge Regression line over the OLS regression line. 
+# L.A.S.S.O. Regression Penalty
+In this example, the {sum of squared residuals} for the *OLS regression line* is 1.69, and for the *L1-L.A.S.S.O. Regression line*, the {sum of squared residuals + L1-L.A.S.S.O. Regression weighted Penalty}  is 0.74. Thus if we wanted to minimize the sum of the squared residuals + the L.A.S.S.O. Regression weighted penalty, we would choose the L1-L.A.S.S.O. Regression line over the OLS regression line. 
 
-WITHOUT the SMALL AMOUNT OF BIAS that the penalty creates, the OLS regression line has a LARGE AMOUNT OF VARIANCE. In contrast, the L1-Ridge Regression Line, which has a SMALL AMOUNT OF BIAS due to the RIDGE REGRESSION WEIGHTED PENALTY, has LESS VARIANCE.
-
-
-Before we talk about lambda, we have to talk about the effect of the l1-ridge regression penalty has on how the line is fit to the data. When the SLOPE OF THE LINE(learned weight/coefficient of feature variable) IS STEEP, then the PREDICTION FOR THE TARGET VARIABLE IS VERY SENSITIVE to SMALL CHANGES IN THE FEATURE VALUE. By the same measure, when SLOPE IS SMALL, then for every one unit increase in the input feature value, then the prediction for the target variable barely increases.
-
-In the previous example, the ridge regression line resulted in a line with a smaller slope, which means that predictions made by the ridge regression line, are less sensitive to the feature values for the 'weight' attribute, than the OLS regression model. 
+WITHOUT the SMALL AMOUNT OF BIAS that the penalty creates, the OLS regression line has a LARGE AMOUNT OF VARIANCE. In contrast, the L1-L.A.S.S.O. Regression Line, which has a SMALL AMOUNT OF BIAS due to the L.A.S.S.O. REGRESSION WEIGHTED PENALTY, has LESS VARIANCE.
 
 
-Ridge Regularization also works when we deal with discrete categorical variables. The slope or feature weight in this case would be equivalent to the difference between the average target attribute value for feature1-group1 vs the average target attribute value for feature1-group2. They can be thought of a binary values. Groups that are assigned the 0 value rely on other terms such as the y-intercept to predict their target value alone. For the Groups that are assigned to the 1 value, they rely on both the y-intercept and the slope/feature weight to determine their target attribute value. 
+Before we talk about lambda, we have to talk about the effect of the l1-L.A.S.S.O. regression penalty has on how the line is fit to the data. When the SLOPE OF THE LINE(learned weight/coefficient of feature variable) IS STEEP, then the PREDICTION FOR THE TARGET VARIABLE IS VERY SENSITIVE to SMALL CHANGES IN THE FEATURE VALUE. By the same measure, when SLOPE IS SMALL, then for every one unit increase in the input feature value, then the prediction for the target variable barely increases.
 
-The whole point of doing ridge regression is because small sample sizes like these can lead to poor least squares estimates that result in terrible machine learning predictions. 
+In the previous example, the L.A.S.S.O. regression line resulted in a line with a smaller slope, which means that predictions made by the L.A.S.S.O. regression line, are less sensitive to the feature values for the 'weight' attribute, than the OLS regression model. 
 
-You can even use ridge regression for logistic regression problems and the ridge regression function would look like this instead:
 
-	{sum of squared likelihoods} + {lambda * slope**2}
+L.A.S.S.O. Regularization also works when we deal with discrete categorical variables. The slope or feature weight in this case would be equivalent to the difference between the average target attribute value for feature1-group1 vs the average target attribute value for feature1-group2. They can be thought of a binary values. Groups that are assigned the 0 value rely on other terms such as the y-intercept to predict their target value alone. For the Groups that are assigned to the 1 value, they rely on both the y-intercept and the slope/feature weight to determine their target attribute value. 
 
-It helps predict whether or not a particular class label is sensitive to the feature variables. When applied to logistic regression, ridge regression optimizes the sum of the likelihoods as opposed to squared residuals in OLS regression because logistic regression is solbed using Maximum Likelihood.
+The whole point of doing L.A.S.S.O. regression is because small sample sizes like these can lead to poor least squares estimates that result in terrible machine learning predictions. 
 
-##### Ridge Regression for Regularization in Complicated models #####
-Now we've seen how using ridge regression has been used to reduce variance by shrinking parametersand making our predictions less sensitive to them. We can apply ridge regression to complicated models as well such as multidimensional or multivariate datasets. In general the ridge regression penalty contains all the parameters/feature weights except for the y-intercept. 
+You can even use L.A.S.S.O. regression for logistic regression problems and the L.A.S.S.O. regression function would look like this instead:
 
-An equation for a ridge regression could look like this for a complicated model:
+	{sum of squared likelihoods} + {lambda * sum(slope**2)}
 
-	lambda * {slope**2 + diet_difference**2 + astrological_effect**2 + airspeed_scalar**2}
+It helps predict whether or not a particular class label is sensitive to the feature variables. When applied to logistic regression, L.A.S.S.O. regression optimizes the sum of the likelihoods as opposed to squared residuals in OLS regression because logistic regression is solbed using Maximum Likelihood.
+
+##### L.A.S.S.O. Regression for Regularization in Complicated models #####
+Now we've seen how using L.A.S.S.O. regression has been used to reduce variance by shrinking parametersand making our predictions less sensitive to them. We can apply L.A.S.S.O. regression to complicated models as well such as multidimensional or multivariate datasets. In general the L.A.S.S.O. regression penalty contains all the parameters/feature weights except for the y-intercept. 
+
+An equation for a L.A.S.S.O. regression could look like this for a complicated model:
+
+	lambda * sum{slope**2 + diet_difference**2 + astrological_effect**2 + airspeed_scalar**2}
 
 Every parameter except for the y-intercept is scaled by the measurements. 
 
@@ -169,41 +173,70 @@ That said, we need at least two data points for a 1-feature-1-target dataset to 
 
 The rule is then that you require (F+1) data points, where F is the number of variates/features in your dataset.
 
-Having enough datapoints-to-features in a dataset for a large parameter dataset might be bonkers and ridiculous to achieve. But we can solve for this using RIDGE REGRESSION. 
+Having enough datapoints-to-features in a dataset for a large parameter dataset might be bonkers and ridiculous to achieve. But we can solve for this using L.A.S.S.O. REGRESSION. 
 
-It turns out, we can solve for a large feature dataset with less than the required number of samples, using RIDGE REGRESSION. Ridge regression can find the solution with cross validation and ridge regression penalty that favors smaller parameter values.
+It turns out, we can solve for a large feature dataset with less than the required number of samples, using L.A.S.S.O. REGRESSION. L.A.S.S.O. regression can find the solution with cross validation and L.A.S.S.O. regression penalty that favors smaller parameter values.
 
 Summary:
-1. when teh samples sizes are realtively small , the ridge regression can improve predictions made from new data(ie. reduce variance) by making the predictions less sensitive to the training data. this is done by adding a ridge regression penalty to the thing tha tmust be minimized. 
+1. when the samples sizes are realtively small , the L.A.S.S.O. regression can improve predictions made from new data(ie. reduce variance) by making the predictions less sensitive to the training data. this is done by adding a L.A.S.S.O. regression penalty to the thing tha tmust be minimized. 
 
 2. lambda is determined using cross validation. 
 
-3. even when there isn't enough data to find the OLS parameterestimates, ridge regression can still find a solution with cross validation and ridge regression penalty.
+3. even when there isn't enough data to find the OLS parameterestimates, L.A.S.S.O. regression can still find a solution with cross validation and L.A.S.S.O. regression penalty.
 
-Another note, after having read through L2-Lasso regression, is that Ridge regression tends to do a little better than L2-LASSO regression when most of the variables are useful. When there are lot of useless variables in the model, you get a lot of variance as a result.
+Another note, after having read through L2-Ridge regression, is that L.A.S.S.O. regression tends to do a little better than L2-Ridge regression when most of the variables are useful. When there are lot of useless variables in the model, you get a lot of variance as a result.
+
+4. If there are correlated terms, LASSO tends to pick one of the correlated terms and eliminates the other ones that are correlated. Whereas ridge regression tends to shrink all of the parameters for the correlated variables together.
 ```
 
-## What is L2-LASSO Regression/Regularization
+## What is L2-Ridge Regression/Regularization
 ``````
-Read Ridge Regression.
+Read L.A.S.S.O. Regression.
 
-L2-LASSO regression is SIMILAR to ridge regression in these manners:
+L2-Ridgeregression is SIMILAR to L.A.S.S.O. regression in these manners:
 
 1. Adds a penalty to the parameters/weights/coefficients of the model with the goal of making the model less sensitive to the values training data. This is particularly useful when you have a small amount of training data to work with. Larger coefficients are associated with larger penalties. In this regard, you introduce a small amount of bias into the your data with the goal of reducing the amount of variance that your mdoel has in terms of its fit from the training data vs. the dev/testing data.
-2. LASSO also has a lambda parameter which is the regularization parameter. It can be 0 to positive infinity and it determines the strength of effect of the L2-LASSO regularization penalty. Just like L1-Ridge Regression, the lambda for L2-regression can be discovered using cross-validation
-3. Just like L1-ridge regression, they can be applied to complicated models that combine discrete and numeric/continuous data types. 
-4. just lihe L1-ridge regression, L2-LASSO regression contains all of the estimated parameter/learned_weight_coefficients in the calculation of the penalty, except for the y-intercept.
+2. Ridge also has a lambda parameter which is the regularization parameter. It can be 0 to positive infinity and it determines the strength of effect of the L2-Ridge regularization penalty. Just like L1-L.A.S.S.O. Regression, the lambda for L2-regression can be discovered using cross-validation
+3. Just like L1-L.A.S.S.O. regression, they can be applied to complicated models that combine discrete and numeric/continuous data types. 
+4. just lihe L1-L.A.S.S.O. regression, L2-Ridge regression contains all of the estimated parameter/learned_weight_coefficients in the calculation of the penalty, except for the y-intercept.
 5. When lambda is 0, there is no regularization and no penalization of the model coefficients, as the penalty has been zero'd out by the lamda, thus the model is essentially just minimizing the sum of squared residuals. 
 6. The penalty does not affect all the parameters of the model all the same.
 
 
-L2-LASSO regression is similar to ridge regression except for a few important DIFFERENTiations.
+L2-Ridge regression is similar to L.A.S.S.O. regression except for a few important DIFFERENTiations.
 
 1. it is not differentiable. It is the absolute shrinkage selection operator after all
 2. you take the absolute value of the slope instead of the squared value of the slope/parameter/learned_feature_weights
-3. The big difference between L1-ridge regression (which uses the coefficients**2) and L2-LASSO regression (which uses the absolute value of the coefficients), is that L1-Ridge regression can only shrink the slop asymptotically close to 0, whereas L2-LASSO regression can shrink the slope ALL THE WAY to 0. 
-4. For ridge, no matter how small you make lambda, you can't shrink the coefficients of the features down to zero. However, for LASSO regression, you can shrink the learned parameters down to 0. This can be used as a method to do feature selection/ and reduce overfitting at the same time. It is a little bit better than ridge regression in this regard at reducing the variance in models that contain a lot of useless variables. This makes the final equation easier to interpret. 
+3. The big difference between L1-L.A.S.S.O. regression (which uses the coefficients**2) and L2-Ridge regression (which uses the absolute value of the coefficients), is that L1-L.A.S.S.O. regression can only shrink the slop asymptotically close to 0, whereas L2-Ridge regression can shrink the slope ALL THE WAY to 0. 
+4. For L.A.S.S.O., no matter how small you make lambda, you can't shrink the coefficients of the features down to zero. However, for Ridge regression, you can shrink the learned parameters down to 0. This can be used as a method to do feature selection/ and reduce overfitting at the same time. It is a little bit better than L.A.S.S.O. regression in this regard at reducing the variance in models that contain a lot of useless variables. This makes the final equation easier to interpret. 
+5. Ridge regression tends to shrnk all of the paramters of the correlated variables together. This is the opposite of L1-LASSO Regression, where in L1-LASSO regression, we tend to only pick one of the correlated variables (if there are correlations among variables) and then it eliminates the other ones that are highly correlated. 
 ``````
+
+## What is Elastic Net Regression/Regularization
+
+```
+When you are working with a very complex dataset  with lots of features, you don't perform too well with the LASSO regression with compared to L2-Ridge Regression. It is good to choose the correct model to be able to estimate the parameters of the model using either ridge or L1-LASSO regression. But how do you know which one to use?
+
+The good news is that you don't have to choose which one to select for a given dataset. ElasticNet regression is particularly good when there are correlations between parameters. This is because on it's own, LASSO tends to only pick one of the correlated terms, and eliminate the other.
+
+It is simple if you know about L1-LASSO regression and L2-Ridge Regression already because Elastic Net Regression is just the addition/combination of L1-L.A.S.S.O. Regression (sum of squared errors + lambda*slope_of_penalty/coefficient_of_features**2) and L2-Ridge regression (sum of squared residuals + lambda*abs(feature_coeffs))
+
+It starts with the calculation of the sum of squared residuals/least squares like the others:
+
+	{sum of squared differences} + {lambda1*sum(abs(feature_coeffs))} + {lambda2*sum(feature_coefffs**2)}
+
+	AKA
+
+	{sum of squared residuals} + {LASSO regularization penalty} + {Ridge regularization penalty}
+
+
+Lambdas1 (LASSO) and 2 (RIDGE) are different lambda regularization terms which can also be discovered or fine-tuned using cross validation on different combinations of lambda1 and lambda2 to find the best combinations.
+
+when Lambda1 and lambda2 = 0, it is essentially just the least squares parameter estimates. If lamda2 =0, we just have the lasso regression, and if lambda1=0, then we have ridge regression.
+
+By combining both LASSO and ridge regression equations, the ElasticNet Regression groups and shrinks the parameters associated with correlated vairables and EITHER leaves them in the equation or removes them all at once. It does a better job with dealing with correlated feature parameters in the model than either of the other two subroutines.
+In order to know whether your parameters are highly correlated or not, you can perform a covariance matrix or a test of correlation.
+```
 
 ## What is Boosting and how can it help in tuning a model?
 
@@ -243,6 +276,89 @@ The StatQuest video on Random Forest show bagging in action
 ## Pick a machine learning algorithm and explain how it works.
 
 ```
+############ Adaboost explained #############
+
+In decision trees a tree with one node and two leaves is called a stump. So this is really a forest of stumps, rather than trees. Stumps are not great at making accurate classifications but they are the basis of AdaBoost.
+
+### Number of Splits ###
+In random forest, decision trees are grown to a full size. Some trees might be bigger than others, but there is no predetermined maximum depth. In contrast, in a forest of trees made with Adaboost, the treeds are just a node and two leaves.
+
+### Number of Features to Make Classification ###
+The main difference between a tree and a stump is that a stump can only use one feature to make a classification decision. Thus stumps are technically weak learners. However, that is how adaboost likes it. One of the reasons why they are so liked. 
+
+### Weighted Voting ###
+In a random forest, each tree has an EQUAL vote on the final classification. In contrast, a forest of stumps created using adaboost, some stumps have more say than others in the final classification.
+
+### Order of creation ###
+In a random forest, each decision tree is made independently of the others. In Adaboost, the order in which the trees are made matter. They are sequential classifiers, meaning that the errors the previous stump makes informs how the subsequent stump is created.
+
+Main Ideas:
+1. adaboost combinses a lot of weak learners to make a classification. The weak learners are almost always stumps. 
+2. There is weighted voting
+3. Sequential learning from errors made from the previous stump
+
+### Creating AdaBoost from scratch ###
+
+When you start off, each SAMPLE or DATA POINT is assigned a weight attribute. At the start, all samples get the sample weight:
+
+	1/Total Num of Samples
+
+When we start, all samples have the same weight, however after we make the first stump, these weights will change, how the next stump is created. These sample weights will be updated. 
+
+We make the first stump in the forest after initializing the equal sample weights. We select a variable that does the best job at classifying the samples. Because all the weights are the same, we can ignore them right now. First we go through each feature individually, and see how many those feature values help us classify the labels. Note that for numeric features, we have to determine the best value to split on, based on some techniques in the Decision Tree StatQuest Video. 
+
+Now we calculate the Gini Index for the three initial stumps created from the three initial features. The Gini index with the lowest value is the one that does the best job at classifying, so this will be used in the creation of the first stump in the forest. Now we will have to determine how much say this stump has in the classification. We determine this weight by how well it classified the samples. 
+
+The TOTAL ERROR for the stump is the sum of weights associated with the INCORRECTLY CLASSIFIED SAMPLES. Initially this weight is 1/TotalNumSamples, So because all the total weights add up to 1, total error will always be 0 for a perfect classification and 1 for a horrible stump. 
+
+We use the total error to determine the weight of this first stump in the final classification with the following formula (note that if total error is 1 or 0, this weight equation will freak out so we add a small error term from making this happen):
+
+	Vote_Weight = 0.5*log(1-total_error/total_error)
+
+When a stump does a good job and the amount of error is small, then the Vote_Weight, is a relatively LARGE POSITIVE VALUE. When a stump is no better at classification than a flip of a coin and total error is 0.5, then the vote_weight=0. When a stump does a terrible job, and the total error is close to 1, in other wrods, if the stump consistently gives you the oppositive classification, then the amount of say will be a large negative value. 
+######## End of the first pass ##########
+
+######## Start of the Second Stump #######
+######## Updating the Sample Weights #####
+Now we need to learn how to update the sample_weights so that the next stump will take those sample errors that the current uses to classify and calculate it's vote_weight.
+
+When we created the first stump, all of the sample weights were all the same, meaning that we did not emphasize the importance of correctly classifying any particular sample. But since the first stump incorrectly classified some particular samples, we will emphasize the need to classify it correctly by increasing it's sample_weight and decreasing all of the other sample_weights. 
+
+Let's start by updating the sample weights. 
+
+This is the formula by weight we update the sample weights for the INCORRECTLY CLASSIFIED SAMPLES:
+
+	updated_sample_weight = sample_weight*e**vote_weight
+
+	example:
+
+	updated_sample_weight = {1/TotalNumSamples}*e**{first_calculated_vote_weight}
+
+to get a better understanding to voting weight has an effect on euler's number in the calculation of the updated_sample_weight, we need to draw a graph. When the previous classifier has a big vote_weight because it did a good job classifying, then we will scale the sample_weight with a large number, that means that the new sample weight is much larger than the old one. And when the vote_weight is small because the previous weak learner did a bad job at classifying, then the previous sample weight is scaled by a relatively small number. That means that the new sample weights will only be a little larger than the old ones. 
+
+This is the formula for updating the correctly classified samples (note that the vote_weight is now negative in this formula. this is the main distinction between the two):
+
+	updated_sample_weight = sample_weight*e** -vote_weight
+
+Just like before, we will have to plot it to see the effect of raising e to a negative vote_weight. When the amount of say is relatively large, Then we scale the sample weight by a value close to 0. This will make the new sample weight very small. If the amount of say for the last stump is relatively small, then we will scale the sample weight to a value close to 1, this means that the updated_sample_weight will only be a little smaller than the old one. 
+
+We will keep track of the new sample weights in this new column. After we have calculted all the sample weights, we will need to normalize the sample weights so that they add up to 1. To normalize means that you make the sum of all the values in a collection of values =1) Currently in the example, if you add up all the next sample weights you will get a value that is less than 1. To normalize:
+
+	Normalized_updated_sample_weights = updated_sample_weight/Sum_Total_Updated_Sample_weights
+
+These are the values we will use for the next stump.
+
+### Weighted GINI FUNCTIOn ###
+Now we can use the modified sample weights to make the next stump. In theory, we can use the sample_weights to calculated the Weighted GINI Indexes to determine which variable to split the next stump. The weighted GINI index would put more emphassis on correctly classifying the samples with the larger weights (wrongly classified samples from the previous iteration). 
+
+#### ALTERNATIVE APPROACH instead of using the Weighted GINI function ####
+Alternatively, instead of using a weighted GINI index, we can make a new collection of samples that contains duplicate copies of the samples with the LARGEST SAMPLE WEIGHTS. We start by making a new but empty, dataset that is the same size as the original then we pick a random number between 0 and 1. Then we see where that random number falls when we use the sample_weights like a distribution. 
+
+We sample from our original dataset into our new empty one WITHOUT REPLACEMENT randomly. Now, we give each of the samples in the new collection EQUAL SAMPLE WEIGHTS, JUST LIKE BEFORE. However, this doesn't mean that the newxt stip will not emphasize the need to correctly classify these samples. Because some of the samples may have been sampled multiple times and are in essence the same sample that was in the original dataset*N times, they will be treated as a block, creating a large penalty for being misclassified.  
+
+Now we go back to the stump that does the best on classifying the new collection of samples. That is how the errors of the first tree makes influences how the second tree is made and so on and so forth. 
+
+A forest of stumps place their weighted votes together. We add up all the vote_weights for each label or category for the class label, and then pick whichever has the higher value, gets say in teh final predicted label for this record/sample/datapoint. 
 
 ```
 
@@ -281,8 +397,95 @@ The StatQuest video on Random Forest show bagging in action
 ```
 
 ```
+## What Techniques are there for feature engineering/feature selection/dimensionality reduction?
+
+```
+
+```
+## What is PCA? How is it performed and what does it do?
+
+```
+Allows us to have a deeper insight into your data visually.
+
+PCA is done step by step with SVD (singular value decomposition). PCA takes high-dimensional/high-feature data, and tells us which genes or variables are most valuable for clustering our data. 
+
+Steps
+1. plot data (feature 1 along the x-axis and feature 2 along the y-axis)
+2. take averages values of each feature
+3. shift the data so that it is centered about the origin of the graph (standardize values). Note that the positions on the graph do not change in terms or orientation, but only a geometric, diagonal shift.
+4. We will be focusing on the graph so we will no longer need the rodinal data
+5. draw a random line through the origin, and keep doing it until it fits the data. PCA decides whether this line is a good fit or not. 
+6. PCA decides whether this random line is a good fit or not by projecting the data onto the line. The distance of the point from the origin doesn't change when new random lines are generated but when we project the point onto the line, we get a right angle between the randomly generated line and the plotted point itself. This makes use of the pythagorean theorem to show how the long and short are related to the line and origin. 
+7. We intuitively then, want to minimize the short of the triangle of the lines that create the right triangle for the point of interest, the origin and the line. and then it measures the distance from the data to the line and tries to find the line that minimizes those distances OR it can try to find the line that maximizes the distances from the projected points to the origin. 
+8. PCA finds the best fitting line (through trial and error) by MAXIMIZING the sum of squared distances from the PROJECTED POINTS to the origin. We square them because negative values don't cancel out positive values. This best line because principal component 1 or PC1 for short. PC1 has a slope as well, just like any other line and a y-intercept of 0. That means for every point that we go out along the {feature 1} axis, we got up one unit along the {feature_2} axis. This could be interpreted as, to make PC1, you need one part {feature_1} to 1 part {feature_2}. The ratio of feature_1 to feature_2 tells you how much more important one feature is than the other when it comes to describing how the data are spread out. Mathematicians call this a "LINEAR COMBINATION" of feature_1 and feature_2. That is to say that PC1 is a "linear combination of variables feature_1 and feature_2"; they are talking about the slope ratio of features. 
+9. We can then solve for the pythagorean with the ol:
+	a**2 = b**2 + c**2
+
+When you do PCa with SVD, the recipe for PC1 is scaled so that the length of of the short=1 (c).
+
+We can scale all the of the sides of the triangle by the hypotenuse that is (math.sqrt(a**2)) so that everything has a unit scale of on. The new values to the slope of this PC1 line, changes our linear combination recipe values but the ratio of rise over run is still the same. 
+
+This vector that belongs to PC1, which contains the rise and run (feature_2/feature_1), is called the "Singular Vector" or "Eigen Vector" and the proportions of each feature are called "Loading Scores". PCA calls the sum of squared distances for the best fit line, the "Eigen Values" for PC1, and the Square Root for the "Eigen Value for PC1" is called the "Singular Value/Eigen Vector" for PC1. 
+
+	Sum of Squared Distances for PC1 = Eigen Value for PC1
+
+	math.sqrt(EigenValue for PC1) = Singular Value/ Eigen Vector for PC1
+
+	math.sqrt(Sum of Squared Distances for PC1) = Singular Value for PC1
 
 
+#### Principal Component 2 ####
+Now, let's work on the second principal component.
+Because this plot in the example is only two dimensional, PC2 is simply the line through the origin of the plot that is perpendicular to PC1, without any further optimization that has to be done. 
+
+This means that the Eigenvector contains loading scores for negative(feature_1) and feature_2 so (feature_2/negative(feature_1)). If we scaled everything so that we get a unit vector (i.e., scale the values by the value of the hypotenuse of the right triangle), then we get the eigenvector for PC2, aka the singular vector for PC2. The loading scores for PC2 are the ratio values that each feature contributes to the slope of PC2 (i.e., the proportion is one loading score, and the run value is the other loading score). Again, the loading scores tell us that, in terms of how the value are projected onto PC2, bigger value is X times more important than smaller value.
+
+Lastly the eigenvalue for PC2 is the sum of squares of the distances between the projected points and the origin.
+
+#### Putting It all Together ####
+
+To put it all together and plot it on the plot, we simply rotate everything so that PC1 is horizontal and then we use the projected points to find where the samples go on the PCA plot. For example, if we have a 2 dimensional plot, then each sample has a pair of corresponding values, corresponding to values along PC1 and PC2. That's how PCA is done using SVD (singular value decomposition). 
+
+	Eigen value for PC1 = Sum of Squared Distances along PC1
+
+	Eigen value for PC2 = Sum of Squared Distances along PC2
+
+Remember, we got the eigenvalues by 1) projecting the data onto the principal components; 2) measuring the distances to the origin 3) squaring each distance value 4) adding them all up 5) we can convert them into variation around the origin (0, 0) by diving by the sample size minus 1 (n-1).
+
+	Variance/variation for PC1 = Eivenvalue PC1/(n-1)
+
+	Variance/variation for PC2 = Eivenvalue PC2/(n-1)
+
+	Total Variance around both Principal components = Variance(PC1)+Variance(PC2)
+
+	That means that var(PC1)/totalvar * 100 = PC1 accounts for {}% of the total variation around the principal components.
+
+TERMINOLOGY ALERT: 
+
+Scree Plot: is a graphical representation of the percentage of variation that each Principal component accounts for in the calculation of the total variation around the principal components. It is just a bar plot of the percentages.
+
+#### More: Principal Component 3 ####
+
+PCA with 3 features is pretty much the same as 2 using 2 variables. 
+
+PCA steps:
+1. Centre the data around the origin
+2. Perform SVD to get PC1, the best fitting line that maximizes the sum of squared distances from the origin, given the projected data points. In the case of having three features/dimensions, you have 3 loading scores for this linear combination of features - one for each feature. The largest of the loading score ratio values indicates that it is the most important feature/ingredient for PC1. 
+3. You then find PC2, the next best fitting line that goes through the origin that is perpendicular to PC1. The loading scores for PC2 will be different from PC1 and some features in this principal component maybe considered more important than others this time around. 
+4. Lastly, we find PC3, the best fitting line that goes through the origin and is perpendicular to both PC1 and PC2. 
+5. If we had more features, we'd just keep on finding more and more principal components by adding perpendicular lines and rotating them. In theory, there is one per feature but in pracitce, the number of principal components is either the number of features or the number of samples, whichever is smaller. 
+6. Once you have all the principal components figured out, you can use the eigen values (sum of squared distances from the origina for each principal component) to determine the proportion of variation that each PC accounts for...You do this by first summing all the variation that each component contributes (again, that is eigen value/num_samples-1).
+7. Once you have the scree plot up of the PCs, you can get a good approximation of the higher dimensional graph and can tell where about 94% of the variation in the data come from in terms of principal components.
+8. To convert the 3-D graph to a 2-D PCA graph:
+	i. we just strip away everything but the data and PC1 and PC2
+	ii. project the samples onto PC1
+	iii. and PC2
+	iv. rotate until PC1 is horizontal and PC2 is vertial (this just makes it easier to look at).
+	v. we look at the project points for each sample, and plot them where the projected points coordinates for the corresonponding sample would intersect on the plot.
+
+We can still draw a 2-D PCA graph with the top 2 principal components or 3-D graph if we pick the top 3 principal components (if we have enough principal components to work with. Remember, the number of components is the minimum of either the number of features or the number of samples, whichever is lower).
+
+even noisy PCA plots where the PCs have high contribution can tell a story about how the data are cluster together.
 
 ############################################### Statistics #################################################################
 
@@ -378,7 +581,7 @@ PDFs are how we can think of continuous random variables.
 
 
 ```
-## what is the difference between a  probability distribution function and a probability density function?
+## what is the difference between a probability distribution function and a probability density function?
 
 ```
 * Probability distribution function and probability density function are functions defined over the sample space, to assign the relevant probability value to each element.
@@ -405,12 +608,30 @@ PDFs are how we can think of continuous random variables.
 ## what is kernel density estimation function
 
 ```
+We us a KDE function When we try to estimate the underly probability density function of the underlying data.
+
+Intuitively: What % of the dat falls between a particular definite integral (area range region underneath a probability density curve).
+
+The kernel density estimator/function has some of the same intuition has being able to get the area underneath the curve at particular definite integrals underneath the curve. It is similar to the histogram function, in that it is an averaging function of the width of the bins of a K(x) function (K is a Kernel weight function). Kernels weigh observations differently depending on how far away they are from the point X, the point where we are evaluating at f(x) and it does this over all of the i observations. There are lots of kernels, but the Gaussian or the PDF (probability density function) of the normal distribution is one. You can have a Kernel that is an indicator function if you are working with discrete intervals or bins, but if you are working with something like a Gaussian kernel, it applies a continuous weight that is decreasing the further we move away from point X.
+
+For a KDE function, you have to choose b, which is the bandwidth (think the width of the bin for a histogram bar except this is a continuous value for the probabiltiy density distribution). 
+
 
 ```
 
 ## what are the Kolmogorov Axioms
 
 ```
+Kolmogorov axioms are a fundamental part of probability theory. In it, the probability P of some event E, denoted P(E) is usally defined to satisfy these axioms. The axoims are described below. These assumptions can be summarised as follows: 
+
+Axiom #1:
+The probability of an event is a non-negative real number
+
+Axiom #2:
+This is the assumption of unit measure: that the probability that at least one of the elementary events in the entire sample space will occur is 1. The set of all possible outcomes P(S)=1, where S is the sample space of an experiment. The probabilty of any of the outcomes happening is 100%
+
+Axiom #3:
+If A and B are mutually exclusive outcomes, P(A u B) = P(A) + P(B). Here u stands for the 'union' operator. We can read this by saiying that if A and be are mutally exclusive outcomes, then the probabiltiy of either A or B happening is the probability of A happening + the probabilty of B happening.
 
 ```
 
