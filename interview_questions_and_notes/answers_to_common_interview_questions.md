@@ -2,12 +2,191 @@
 
 ############################################ Machine Learning ###########################################################
 
+## Define AUC ROC, sensitivity, specificity, recall, precision, F1 score, F2 score, accuracy and when you would want to use each?
+
+```
+
+```
 
 ## explain PCA, LDA, SVD
 
 ```
 
 ```
+## What is TSNE? Explain it.
+
+https://www.youtube.com/watch?v=NEaUSP4YerM
+
+```
+
+```
+## What is dimensionality reduction? How can you go about using dimensionality reduction? 
+
+https://www.youtube.com/watch?v=YaKMeAlHgqQ
+https://www.youtube.com/watch?v=ioXKxulmwVQ
+
+```
+It is reducing the number of features to reduce the variance in the model, as well as the signal to noise ratio of modelling your features to your target.
+
+There are several approaches that can be done through this.
+
+# PCA
+
+PCA: for visualization and DimRed; you can use the selected principal components to model a classification or regression problem from, and it is an exploratory type of modeling that can be done prior to see the PCs of maximum variance and explainability in your data.
+
+# Percent Missing Values
+	* % missing values
+	* % records with missing values/ % of total recordfs
+	* create binary indicators to denote missing values (or non missing values)
+		* This might be a good feature that is engineered
+		* you can also use a classifier (simple tree) to figure out how and what values could be classified as missing data or use a nearest neighbors alogorithm to do it
+	* review or visualize variables with high % of missing values
+
+	```python3
+	
+
+	```
+
+# Amount of variation
+	* Drop features or review variables that have a very low 	variation
+	* variance(x) = sigma **2  = std dev **2
+	* either standardize all variables, or use standard deviation sigma to account for variables with different scales
+	* drop variables with zero variance (unary)
+	
+	```python3
+
+
+	```
+
+
+# Pairwise Correlation
+	* many variables are often correlateed with one another, and hence redundant
+	* if two variables are highly correlated, keeping only one will help reduce dimensionality reduction without too much loss of information
+		* which variable do you keep? The one that has a higher correlation coefficient with the target.
+
+	```python3
+	
+
+	```
+
+# Mutlicollinearity
+	* when two or more variables are highly correlated with one another
+	* dropping one or more variables should help reduce dimensionality wihtout a substantial lossof information 
+	* which variables to drop? Use Condition Index
+
+	```python3
+	
+
+	```
+
+# Cluster Analysis
+	* dimensionality reduction techniques emphasize similarity and correlation
+		* identify groups of variables that are as correlated as possible among themselvesand as uncorrelated as possible with variables in other clusters.
+	* reduces multicollinearity - explicability is not always compromised
+	* when to use?
+		* excessive multicollinearity
+		* explanation of the predictors is important
+
+	```python3
+	from sklearn.cluster import FeatureAgglomeration
+	varclus = FeatureAgglomeration(n_clusters=10)
+	varclus.fit(train_scaled)
+	train_varclus = varclus.transform(train_scaled)
+
+	```
+	This retuns a polled value for each cluster (i.e., the centroids) which can be used to build a supervised learning model
+
+
+# Correlation with the Target
+	* drop variables taht ahve a very low correlation with the target
+	* if a variable has a very low correlation with the target it's not going to be useful for the model (prediction).
+
+	```python3
+	
+	absolutecorrelationwithtarget = list()
+
+	for var in df.columns:
+	absolutecorrelationwithtarget.append(abs(y.corr(X[var])))
+
+	# where df.columns are all the variables
+	```
+
+# Forward Selection
+	1. Identify the best variable (e.g., based on model accuracy)
+	2. Add the next best variable into the model
+	3. And so on until some predefined criteria is satisfied
+
+	```python3
+	loop through every feature of the model and use it as a the predictor variable and keep only the features that result in the greatest sequential increase in model performance and as little information loss as possible
+	```
+
+# Backward Selection
+	1. start with all variables included in the model
+	2. drop the least useful variables (e.g., based on the smallest drop in model accuracy or greatest rise in model accuracy)
+	3. And so on until some predefined criteria is satisfied
+
+	```python3
+	loop through all features of the model and iteratively remove features that result in a better result than before
+
+	```
+
+# Stepwise Selection
+	* similar to forward selection process but a variable can also be dropped if it's deemed not as useful anymore after a certain number of steps
+
+	```python3
+	loop through all features of your model and iteratively add or remove the feature to the model
+
+	```
+# LASSO
+	* Has been used for linear models in regularization, however, there is regularized logisticregression, which works the same way
+	* feature selection and regularization in one go
+
+	```python3
+
+	while jLASSO <= maxpreds:
+		thislassofit = LogisticRegression(
+			C=ThisC,
+			penalty='l1',
+			random_state=123
+			).fit(train1_scaled, y_train)
+
+		modelcoeff = np.transpose(thislassofit.coef_)[np.where(thislassofit.coef_ <> 0)[1]]
+
+		thislassopreds = train.keys()[np.where(thislassofit.coef_ <> 0)[1]]
+
+		thisparamslist = pd.DataFrame(zip(thislassopreds, modelcoef))
+
+	```
+# Tree-Based Models
+	* forest of trees to evaluate the importance of features
+	* fit a number of randomized decision trees on various SUB-SAMPLES of the dataset and use averaging to rank order features by their importance contribution. You can use this with XGBoost or Random Forest
+
+	```python3
+	ordered_params["DTree"] = {}
+	ordered_importances = {}
+	min_split_num = int(minsplit * len(train))
+	min_leaf_num = int(minleaf * len(train))
+
+	select_forest_fit = ExtraTreesClassifier(
+		n_estimators=100,
+		min_samples_split=min_split_num,
+		min_samples_leaf=min_leaf_num).fit(X_train, y_train)
+
+	importances = select_forest_fit.feature_importances_
+	select_forest_ranks = np.argsort(importances)[::-1]
+
+	```
+
+```
+
+
+## How could you possibly go about selecting the best features for the model?
+
+```
+Instinct tells me that I could go with something like the top feature importances from a decision tree, or an ensemble of decision trees (Boostin Gradient Classifiers, Random Forest, AdaBoost)
+
+```
+
 
 ## what is feature engineering
 
@@ -132,7 +311,7 @@ In contrast, L1-L.A.S.S.O. regression tries to minimize it's cost function (the 
 	AKA
 
 	{ sum of squared residuals }  + { L.A.S.S.O. Regression Weighted Penalty }
-
+https://www.youtube.com/watch?v=pd-0G0MigUA
 # Lambda
 Lambda is a regularization coefficient common to both L1-L.A.S.S.O. Regression and L2-Ridge regression. The {slope*2} component adds a PENALTY to the model parameters in traditional least squares cost function and {lambda} determines how severe the penalty is. Lambda can take on any value from 0 to positive infinity. If lambda is 0, then the L.A.S.S.O. regression penalty is also 0. As we increase the the regularization parameter, we increase the effect of the penalty parameter, and thus, the line because less and less sensitive to the effects of the feature inputs. If lambda is infinite, then we are left with a horizontal line, not fitting to any of the data. 
 
@@ -645,6 +824,9 @@ If A and B are mutually exclusive outcomes, P(A u B) = P(A) + P(B). Here u stand
 
 ```
 
-```
 
-## What is _ 
+## What is the Students t-test and when would you use it?
+
+## How do you test for normality of distribution?
+
+## What is ANOVA and when do you use it?
