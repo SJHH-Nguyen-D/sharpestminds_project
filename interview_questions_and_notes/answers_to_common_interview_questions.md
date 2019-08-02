@@ -2,24 +2,230 @@
 
 ############################################ Machine Learning ###########################################################
 
+## batch norm
+
+## dropout
+
+## RNNS vs CNN
+
+## how to deal with missing data.
+
+## when to use Linear Regression vs Nueral Network
+
+
+## K-Means vs KNN
+
+
+```
+K-Means is unsupervised and KNN is supervised.
+
+# K-Means 
+* does clustering which can be done on a:
+	* line
+	* scatter plot
+	* heat map
+
+* will also pick the best value for the number K (spoiler, using the elbow method that displays the most variation). 
+```
+
+## How does SVM work
+
+```
+
+```
+
+
 ## Define AUC ROC, sensitivity, specificity, recall, precision, F1 score, F2 score, accuracy and when you would want to use each?
 
 ```
+# ROC and AUC
+
+Remember: a logistic regression curve is a sigmoidal curve (0, 1).
+
+When doing logistic regression for a binary class label, the y-axis is converted to the probability that a particular observation with value along the x-axis being in a particular class. There are only two values notched on the ticks along the y-axis and they are 0 and 1 to indicate the two different class labels. The logistic regression tells us the PROBABILITY that an observation is of a particular class, based on it's x-axis value. However, if we want to CLASSIFY, with DISCRETE CATEGORICAL PREDICTIONS, whether an observation is of a particular class, we need a way to map probabilities to those discrete class labels. 
+
+One way to classify is to set a threshold of probabilities. 
+
+Using a confusion matrix of the classification (the top is actual, the horizontal is predicted). Calculate sensitivity and specificity for each. 
+
+We can repeat this process for each threshold for building the confusion matrix again. This would result in different TP, TN, FP, FN, sensitivity, and specificity. 
+
+If the idea of classifying with a different threshold than 0.5, throws you off, then consider the nature of the classification task. What if it is absolutely imperative that you correctly classify every sample as one particular class label, due to the real world implications that it was incorrectly classified ? (e.g., correctly classifying an individual as having ebola or not). This would mean lowering the threshold, even if it means the result would mean more false positives. 
+
+Thus, the threshold could be set to anything, between 0 and 1. how do we determine which threshold is the best threshold for our use case? We don't actually have to test every single option for thresholds, as there will be some overlaps in creating the same confusion matrix over and over again for some configuration of thresholds. Even if we made a confusion matrix for each one that mattered, it would result in a large numbe rof confusion matrices. 
+
+Instead of being overwhelmed with the sheer number of created confusion matricecs, ROC graphs or plots provide a simple way to summarize all of the information at each threshold. 
+
+ROC graphs are always depicted as such: y-axis is TPR (true positive rate aka sensitivity) and the X-axis is (1-specificity). 1-Specificity is also known as the false positive rate. 
+
+	sensitivity = TP/all real positives
+
+	sensitivity = TP/TP+FN
+
+	specificity = TN/all real negatives
+
+	specificity = TN/TN+FP and therefore,
+
+	FP ratio/rate = 1-specificity
+
+
+We can look at the ROC curve as a trade off between making a false positive guess against being able to correctly classify true real positives, at each rate of each (0-100%), at each threshold of tradeoff. 
+
+If AUC the ROC curve is 1, then we have a model that can correctly classify all samples at all thresholds(?). The way I think the AUC metric works is that lxw of a square = area. if you are were to form a perfect box of TPR=1 and FPR = 1; FPR*TPR=1.0 or 100%, then we have a perfect correlation between the two. I think, then that the AUC is a generalization or somewhat 'average' of TPR vs FPR, and that the greater the 'lift' in the TPR, the better the model is and the greater the AUC is. 
+
+If we set the threshold to 1.0, we can correctly predict, with 100% correctness all of the TPs but have 100% FPs. That means that we failed to correctly classify the other label. We draw a line from the origin of the graph diagonally to divide the graph. Any point on this line means that th eproportion of correctly classified points are the same as the proportion of incorrectly classified samples. This means that along this line, this is the worst that the model can do to classify because at that point, it is just a random guess as to what sample is classified as what. This diagonal could be thought of as the null model or the worst model. 
+
+From what we can gleen from looking at the ROC curve, the higher we can pull the hump of the ROC curve towards to the top left corner of the graph (FPR, TPR) to (0, 1), then the 'better' the model is at classifying things as True positives WITHOUT any false positives. 
+
+Ultimately, the ROC curves make it easy to identify the best threshold for making a decision.
+Thusly, the ROC graph is a higher level visual depiction of what happens to the classification of a binary classification problem, when you adjust the thresholds (with implications on emphasizing the importance of predicting things as one class than the other) for classifying a negative case vs a positive case. We connect the lines to see the ROC curve for each TPR and FPR coordinate pair at each threshold. 
+
+# AUC of ROC
+The AUC makes it easier to compare one ROC curve to another. The greater the number, the better the classifier. 
+
+# Precision
+The 'P' in precision helps you remember that precision deals with the positive case predictions in a classification problem. Although ROC graphs are often drawn with TPR and FPR to summarize the confusion matrix, there are other metrics that attempt to do the same thing and precision is one of them. Thusly, on the ROC curve, we can replace the FPR along the x-axis with precision. Precision is thus, the proportion of positive results that were correctly classified among all negative case predictions.
+
+	Precision = TP/(all guessed positives)
+
+	Precision = TP/TP+FP
+
+# When is it useful to use Precision over FPR?
+
+We would use precision over FPR when the proportion of positive cases relative to the number of negative cases were much greater, as most of the guesses would be positive anyways. This is because the precision calculation does NOT include the number of TNs in its calculation, and there for is not effected by the imbalance of less negatives than positives. In practice, this sort of imbalance occurs when studying an uncommon phenomenon (such as disease, where there are often more healthy cases than not).
+
+
+
+
+# Recall
+Recall starts with 'R' and not 'P' so therefore it cannot be remembered as precision, and thus it is the other metric knonw as recall. The opposite of precision is recall. Recall is the proportion of negative results correctly classified among the negative case predictions.
+
+	Recall = TN/(all guessed negatives)
+
+	Recall = TN/(TN+FN)
+
+# When is it useful to use Recall over FPR? 
+
+We would use recall over FPR when the proportion of negative cases relative to the number of positive cases were much greater, as most of the guesses would be negative anyways. This is because the recall calculation does NOT include the number of TP in its calculation, and there for is not effected by the imbalance of less positives than negatives.
+
+
+# F1-Score
+F1-score is the weighted average of precision and recall. Therefore, this score takes false predictions into account (FN and FPs). Intuitively, it is not as easy to understand as accuracy, but F1 is usually more useful than accuracy, especially if you have an uneven class distribution. Accuracy works best if FPs and FNs have similar cost. If the cost of FPs and FNs were different, it's better to look at both Precision(deals with FPs) and Recall (deals with FNs).
+
+	F1-Score = 2*Recall*Precision/(Recall + Precision)
 
 ```
 
-## explain PCA, LDA, SVD
-
-```
-
-```
-## What is TSNE? Explain it.
+## What is T-SNE? Explain it.
 
 https://www.youtube.com/watch?v=NEaUSP4YerM
 
 ```
+student T-Stochastic Neighbors Embedding. TSNE is used for dimensionality reduction as well as visualization technique. It takes a high dimensional dataset and visualizes on a lower dimensional graph, while retaining a lot of the original information such as the similarity between data points. We can see clustering of the data points the more similar they are or how dissimilar they are to different clusters.
+
+Let's take an example of taking a two dimensional scatter plot of points, and then transforming the data and mapping them onto a lower dimensional, flat 1-D plot on a number line. This is a super simple example to explain the concepts behind TSNE so that when we see it applied to a larger dataset. Note that if just projected the points onto the line, we get a big mess, as this doesn't preserve the original clustering from the higher dimensional space. 
+
+At each step of the mapping of a from the 2d plot onto a 1d line, a point is attracted to points it was near to in the higher dimensional scatter plot, and repelled by points it is far from... 
+
+This is how it does what it does.
+
+# Determining the unscaled similarity between one particular point, wrt to the rest of the points
+1. determine the similarity between all the points in the scatter plot. For this demonstration, let's just focus on determining the similarity between one particular point and the it's similarity between it and the rest of the points.
+	* measure the distance between two points.
+2. Plot this distance along a normal or gaussian curve that is centred upon the point of interest
+3. Draw a line from this point along the axis to the curve. This line is the unscaled similarity. 
+4. We plot the distance from this one point to all the other points, and measure the unscaled similarity (distance from the point on the axis to the normal curve itself) Using a normal distribution means that very distance points have very low unscaled similarity values. By the same measure, more similar points have a smaller distance that are measured from the 2D plot, and thus have greater unscaled similarity values. 
+5. Now, we scale the unscale similarity scores so that they add up to 1 (normalize). Why do they have to add up to 1? The width of the normal curve depends on the density of data near the point of interest in the center. The denser the data are around the centre, the higher the peak of the normal is (imagine packing a sand hill and squishing the sand into the centre), and the narrower the base of the peak is. The wider the peak, the greater the standard deviation is. Scaling the unscaled similarity scores will make them the same for both clusters. 
+	
+	Scaling the similarity values so that they sum to 1:
+
+	(unscaled similarity score score for one point)/(sum of all unscaled similarity scores) = scaled score for one point
+
+T-SNE has a perplexity parameter equal to the expected density. This comes into play later on. 
+
+6. We repeat this process for each of the points on the scatter point wrt to the rest of the other points.
+
+Note: since the width of the distribution depends on the density of distance values surrounding the data points, the similarity score for a particular node, the similarity score for point A to point B might not be the same as the similarity score from point B to point A. So, what is happening here is that t-SNE averages the two similarity scores from the two directions. 
+
+Ultimately, you end up with a matrix of similarity scores. TSNE knows that a cluster cannot be similar to itself so it defines a similarity of a point to itself as 0. 
+
+After we have done all that, NOW, we randomly project the points from the scatter plot onto the number line and calculate scaled similarity scores for the points on the number line. Just like before, that means picking a point, measuring a distance, and lastly, drawing a line from the point to a curve. However, this time, we're using a t-distribution. A t-distribution is a lot like a normal distribution, except the t-distribution isn't as tall in the centre as the normal distribution, however the tail in the t-distribution are taller at the ends. The t-distribution is the t- in t-SNE. 
+
+Like before, we produce a matrix of similarity scores by calculating the 1st) the unscaled similarity scores and then 2nd) scale them. However, unlike the original matrix, this matrix is a mess compared to the one that used the normal distribution. T-SNE works one step at a time, moving a point along the number line so that the t-distribution of similarity scores matrix looks like the normal distribution similarity score matrix. 
+
+# This is the rationale as to why the t-distribution is used:
+Without the t-distribution, the clusters would all clump up in the middle and be harder to visualize.
 
 ```
+
+## What is LDA and how can I use it?
+
+```
+Linear Discriminant Analysis is like PCA (in that it reduces dimensions to a lower dimension) but it focuses on maximizing the separability among KNOWN categories.
+
+What is the best way to reduce the dimensions? A bad way is to just ignore a feature and just map the points onto the one feature and onto the x-axis number line. this is bad because you lose the information of spacial clustering. LDA provides a better way.
+
+For the example of reducing a 2 dimensional scatter plot down to a 1-D line, LDA uses information from both features to create a new axis in a way to maximize the separation between two categories. LDA projects the data onto this new axis in a way to maximize the separation between the two categories/class labels/known clusters. 
+
+How does it do this?
+1) Maximize the distance between mean measurements of each category/group
+2) Minimize the variation (which LDA calls "scatter" and is represented by s**2) WITHIN each category.
+3) we consider both these criteria simultaneously in this expression:
+
+	(u1-u2)**2/ (s1**2 + s2**2)
+
+	or 
+
+	distance**2/(s1**2 + s2**2)
+
+	Ideally Large/ Ideally Small
+
+The reason we want this is because we want the big numerator (large difference of means) to convey a larger distance between categories (smaller scatter within categories means a tighter cluster and tighter similarities between data points), which indicates distinct maximimization of distance between the two categorical groups.
+
+We show an example of why scatter and distance are important for visually understanding the separation of our categories and reducing our dimensions while retaining the spatial relation information between clusters. 
+
+If we only separate the distance between means, we may get clumping in the middle between the two separate categories....HOWEVER, if we optimize the distance between means AND the scatter/variance within categories....then we get nice separation. 
+
+## What if we have 3 features?
+The process is the same. We create a new axis that maximizes the distance between the means for the two categories while minimizing the scatter. Then we project the data onto the new axis. This new axis was chosen to maximize the distance between the means of those 3 features (probably scaled) while minimizing the scatter. 
+
+## what if we had 3 categories?
+
+If we had three categories, some small things change. We change the way we calculate the distance among the means. 
+1) we find a point that is central to all the data
+2) we measure the distances between that main central point (centroid) and a central point to each category (those are considered the means) 
+3) now we want to maximize the distance between each category and the central point, while minimizing the scatter within each respective category. 
+
+	(d1**2 + d2**2 + d3**2)/(s1**2+s2**2+s3**2)
+
+The second difference with 3 categories is that there are two axes that are created to separate the data as oppose to the previous 1 axis. That is because the three central points to the category define a plane. This plane is optimize the separation between clusters of categories. 
+
+What if we had MORE features? Suddenly, being able to create 2 axes that maximize the separation of three categories is super cool! It is better than drawing a 10,000 dimensions...
+
+##### LDA compared with PCA ###
+
+# Difference
+PCA doesn't separate the categories nearly as well as LDA. HOWEVER, PCA wasn't even trying to separate these categories, It was just trying to look for the genes with the most variation. 
+
+# Similarities
+* both rank the new axes in order of importance
+* PC1 accounts for the most variation in the data and PC2 does the second best job
+* LD1 (the first new axis that LDA creates) accounts for the most variation between categories. 
+* Both methods allow you to dig in or drill down to see which features are driving the creation of the new axes (loading scores from PCA and in LDA we can see which features correlate with the new axes)
+
+Conclusion:
+* LDA is like PCA - both try to reduce dimensions
+* PCA looks at the features with the most variation 
+* LDA tries to maximize the separation of known categories. 
+```
+
+
+## What is KL divergence and what does it do?
+
+```
+
+```
+
 ## What is dimensionality reduction? How can you go about using dimensionality reduction? 
 
 https://www.youtube.com/watch?v=YaKMeAlHgqQ
@@ -71,7 +277,7 @@ PCA: for visualization and DimRed; you can use the selected principal components
 
 # Mutlicollinearity
 	* when two or more variables are highly correlated with one another
-	* dropping one or more variables should help reduce dimensionality wihtout a substantial lossof information 
+	* dropping one or more variables should help reduce dimensionality wihtout a substantial loss of information 
 	* which variables to drop? Use Condition Index
 
 	```python3
@@ -177,6 +383,14 @@ PCA: for visualization and DimRed; you can use the selected principal components
 
 	```
 
+Tips about these techniques.
+* don't assume that all these techniques are helping. Always check if they are helping or hurthing
+* don't get to fancy with these techniques. The simpler they are the better. The most straight forward one is the forward selection type of feature selection in which you can see your model selecting features with greater performance scores incrementally.
+* You need to setup your model evaluation before you try any of these feature selection methods to see how if any of these are actually helping.
+* Try to focus on things built into sklearn because if you are writing custom code, it's easy to make mistakes 
+* ML extend is also good as well but just kind of stick with Sklearn
+* 
+
 ```
 
 
@@ -188,9 +402,25 @@ Instinct tells me that I could go with something like the top feature importance
 ```
 
 
-## what is feature engineering
+## what is feature engineering and what are some ways that you can create features?
 
 ```
+Creating features to include in the model so to better model the relationships between the variables and the target.
+
+Feature engineering requires proper feature preprocessing, otherwise, the engineering process may result in bunk data that are not as optimal as we would like to work with. 
+
+Feature processing may be required for each type of data:
+1. Numeric
+2. Categorical
+3. Ordinal
+4. datetime
+5. coordinates
+6. Missing values
+
+# Categorical
+Often requires data to be onehot encoded, however, some models like random forest do not require one hot encoding (random forest can split each group within the feature into separate leaves and predict fine probablities). 
+
+The types of Feature preprocessing and feature engineering should be dependent on the underlying algorithm/model.
 
 ```
 
@@ -302,11 +532,11 @@ When least squares or linear regression determines what values the parameters of
 
 In contrast, L1-L.A.S.S.O. regression tries to minimize it's cost function (the curly braces are just there to make the components of the equation more readable). The slope is the same as the weight/parameter coefficient of feature variable: 
 	
-	{ sum of squared residuals }  + { lambda * sum(slope**2) }
+	{ sum of squared residuals }  + { lambda * sum(abs(slopes)) }
 
 	AKA 
 
-	{ sum of squared residuals }  + { lambda * sum(learned_feature_weight**2) }
+	{ sum of squared residuals }  + { lambda * sum(abs(learned_feature_weight)) }
 
 	AKA
 
@@ -335,16 +565,16 @@ The whole point of doing L.A.S.S.O. regression is because small sample sizes lik
 
 You can even use L.A.S.S.O. regression for logistic regression problems and the L.A.S.S.O. regression function would look like this instead:
 
-	{sum of squared likelihoods} + {lambda * sum(slope**2)}
+	{sum of squared likelihoods} + {lambda * sum(abs(slope))}
 
-It helps predict whether or not a particular class label is sensitive to the feature variables. When applied to logistic regression, L.A.S.S.O. regression optimizes the sum of the likelihoods as opposed to squared residuals in OLS regression because logistic regression is solbed using Maximum Likelihood.
+It helps predict whether or not a particular class label is sensitive to the feature variables. When applied to logistic regression, L.A.S.S.O. regression optimizes the sum of the likelihoods as opposed to squared residuals in OLS regression because logistic regression is solved using Maximum Likelihood.
 
 ##### L.A.S.S.O. Regression for Regularization in Complicated models #####
 Now we've seen how using L.A.S.S.O. regression has been used to reduce variance by shrinking parametersand making our predictions less sensitive to them. We can apply L.A.S.S.O. regression to complicated models as well such as multidimensional or multivariate datasets. In general the L.A.S.S.O. regression penalty contains all the parameters/feature weights except for the y-intercept. 
 
 An equation for a L.A.S.S.O. regression could look like this for a complicated model:
 
-	lambda * sum{slope**2 + diet_difference**2 + astrological_effect**2 + airspeed_scalar**2}
+	{sum of squared residuals} + {lambda * sum{abs(slope) + abs(diet_difference) + abs(astrological_effect) + abs(airspeed_scalar)}}
 
 Every parameter except for the y-intercept is scaled by the measurements. 
 
@@ -357,7 +587,7 @@ Having enough datapoints-to-features in a dataset for a large parameter dataset 
 It turns out, we can solve for a large feature dataset with less than the required number of samples, using L.A.S.S.O. REGRESSION. L.A.S.S.O. regression can find the solution with cross validation and L.A.S.S.O. regression penalty that favors smaller parameter values.
 
 Summary:
-1. when the samples sizes are realtively small , the L.A.S.S.O. regression can improve predictions made from new data(ie. reduce variance) by making the predictions less sensitive to the training data. this is done by adding a L.A.S.S.O. regression penalty to the thing tha tmust be minimized. 
+1. when the samples sizes are realtively small , the L.A.S.S.O. regression can improve predictions made from new data(ie. reduce variance) by making the predictions less sensitive to the training data. this is done by adding a L.A.S.S.O. regression penalty to the thing that must be minimized. 
 
 2. lambda is determined using cross validation. 
 
@@ -372,7 +602,7 @@ Another note, after having read through L2-Ridge regression, is that L.A.S.S.O. 
 ``````
 Read L.A.S.S.O. Regression.
 
-L2-Ridgeregression is SIMILAR to L.A.S.S.O. regression in these manners:
+L2-Ridge Regression is SIMILAR to L.A.S.S.O. regression in these manners:
 
 1. Adds a penalty to the parameters/weights/coefficients of the model with the goal of making the model less sensitive to the values training data. This is particularly useful when you have a small amount of training data to work with. Larger coefficients are associated with larger penalties. In this regard, you introduce a small amount of bias into the your data with the goal of reducing the amount of variance that your mdoel has in terms of its fit from the training data vs. the dev/testing data.
 2. Ridge also has a lambda parameter which is the regularization parameter. It can be 0 to positive infinity and it determines the strength of effect of the L2-Ridge regularization penalty. Just like L1-L.A.S.S.O. Regression, the lambda for L2-regression can be discovered using cross-validation
@@ -381,12 +611,13 @@ L2-Ridgeregression is SIMILAR to L.A.S.S.O. regression in these manners:
 5. When lambda is 0, there is no regularization and no penalization of the model coefficients, as the penalty has been zero'd out by the lamda, thus the model is essentially just minimizing the sum of squared residuals. 
 6. The penalty does not affect all the parameters of the model all the same.
 
+	{sum of squared likelihoods} + {lambda * sum(learned_variable_coefficients**2)}
 
 L2-Ridge regression is similar to L.A.S.S.O. regression except for a few important DIFFERENTiations.
 
-1. it is not differentiable. It is the absolute shrinkage selection operator after all
-2. you take the absolute value of the slope instead of the squared value of the slope/parameter/learned_feature_weights
-3. The big difference between L1-L.A.S.S.O. regression (which uses the coefficients**2) and L2-Ridge regression (which uses the absolute value of the coefficients), is that L1-L.A.S.S.O. regression can only shrink the slop asymptotically close to 0, whereas L2-Ridge regression can shrink the slope ALL THE WAY to 0. 
+1. it is differentiable.
+2. you take the squared value of the slope instead of the absolute value of the slope/parameter/learned_feature_weights
+3. The big difference between L1-L.A.S.S.O. regression (which uses the abs(coeffs_)) and L2-Ridge regression (which uses the coeffs**2), is that L1-L.A.S.S.O. regression can only shrink the slop asymptotically close to 0, whereas L2-Ridge regression can shrink the slope ALL THE WAY to 0. 
 4. For L.A.S.S.O., no matter how small you make lambda, you can't shrink the coefficients of the features down to zero. However, for Ridge regression, you can shrink the learned parameters down to 0. This can be used as a method to do feature selection/ and reduce overfitting at the same time. It is a little bit better than L.A.S.S.O. regression in this regard at reducing the variance in models that contain a lot of useless variables. This makes the final equation easier to interpret. 
 5. Ridge regression tends to shrnk all of the paramters of the correlated variables together. This is the opposite of L1-LASSO Regression, where in L1-LASSO regression, we tend to only pick one of the correlated variables (if there are correlations among variables) and then it eliminates the other ones that are highly correlated. 
 ``````
@@ -402,7 +633,7 @@ It is simple if you know about L1-LASSO regression and L2-Ridge Regression alrea
 
 It starts with the calculation of the sum of squared residuals/least squares like the others:
 
-	{sum of squared differences} + {lambda1*sum(abs(feature_coeffs))} + {lambda2*sum(feature_coefffs**2)}
+	{sum of squared differences} + {lambda1*sum(abs(feature_coeffs))} + {lambda2*sum(feature_coeffs**2)}
 
 	AKA
 
@@ -428,17 +659,6 @@ The StatQuest video on XGBoost, Gradient Boosting Classifiers, AdaBoost show an 
 The StatQuest video on Random Forest show bagging in action
 ```
 
-## what is feature selection. what are some methods for doing this.
-
-```
-
-```
-
-## what are eigen values and eigen vectors
-
-```
-
-```
 
 ## what is covariance? How is it related to correlation
 
@@ -449,7 +669,7 @@ The StatQuest video on Random Forest show bagging in action
 ## What is the difference between a classification problem and a regression problem?
 
 ```
-
+A classification problem predicts discrete class lable outcomes, whereas a regression problem produces inferences for continuous valued outcomes.
 ```
 
 ## Pick a machine learning algorithm and explain how it works.
@@ -588,6 +808,13 @@ Allows us to have a deeper insight into your data visually.
 
 PCA is done step by step with SVD (singular value decomposition). PCA takes high-dimensional/high-feature data, and tells us which genes or variables are most valuable for clustering our data. 
 
+# Tips
+1. scale each data point by the standard deviation for that feature
+2. Center your data
+3. How many principal components can you expect to find? Technically, there is a PC for each feature in the dataset. However, if there are fewr samples than variables, then teh number of samples puts an upper bound on the number of PCs with eigenvalues greater than 0. 
+
+	max_num_PCs = min(len(df.columns[df.columns != "target"]), df.shape[0])
+
 Steps
 1. plot data (feature 1 along the x-axis and feature 2 along the y-axis)
 2. take averages values of each feature
@@ -600,7 +827,9 @@ Steps
 9. We can then solve for the pythagorean with the ol:
 	a**2 = b**2 + c**2
 
-When you do PCa with SVD, the recipe for PC1 is scaled so that the length of of the short=1 (c).
+When you do PCa with SVD, the recipe for PC1 is scaled so that the length of of the short=1 (c). This is equivalent to by dividing each measurement by the standard deviation for that feature. 
+	
+	std dev = math.sqrt(sum([(x-mean(X))**2 for x in X])/(len(X)-1))
 
 We can scale all the of the sides of the triangle by the hypotenuse that is (math.sqrt(a**2)) so that everything has a unit scale of on. The new values to the slope of this PC1 line, changes our linear combination recipe values but the ratio of rise over run is still the same. 
 
@@ -666,7 +895,23 @@ We can still draw a 2-D PCA graph with the top 2 principal components or 3-D gra
 
 even noisy PCA plots where the PCs have high contribution can tell a story about how the data are cluster together.
 
+```
+
 ############################################### Statistics #################################################################
+
+## Explain Bayes Theorem
+
+```
+Equation for Bayes Theorem
+
+	P(A|B) = (P(B|A)*P(A))/P(B)
+
+	OR
+
+	P(B|A) = (P(A|B)*P(B))/P(A)
+
+
+```
 
 ## Explain recall and precision
 
@@ -824,9 +1069,134 @@ If A and B are mutually exclusive outcomes, P(A u B) = P(A) + P(B). Here u stand
 
 ```
 
+```
 
 ## What is the Students t-test and when would you use it?
 
+```
+
+```
+
+## P-Values
+
+
+```
+
+```
+
+## Assumptions of Linear Regression
+
+```
+
+```
+
+## Parametric vs Non-Parametric
+
+```
+
+```
+
+
 ## How do you test for normality of distribution?
 
+```
+
+```
+
 ## What is ANOVA and when do you use it?
+
+```
+
+```
+
+## Explain Bayes Theorem
+
+```
+
+```
+
+## What is Maximum Likelihood?
+
+```
+The goal of maximum Likelihood is to find the optimal way to fit a distribution to the data. There are lots of types of distributions for different types of data. There are normal distributions, poisson distributions, gamma distributions, exponential distributions...
+
+The reason you want to fit a distribution to your data is that it can be easier tow ork with and it is also more general - it applies to every experiment of the same type. 
+
+In this case, we believe that the feature values might be normally distributed before hand (looking at it specifically). 
+
+Once we have an idea of what the distribution might look like, we have to centre the thing. Is one location better than another? 
+
+A normal distribution says:
+"Most of the values you measure should be near my average/centre of the hill". 
+
+We could then shift the normal distribution so that the mean of the normal distribution is the same as the average feature measurement? 
+
+# Plotting/Discovering the Maximum Likelihood
+We can plot the likelihood of observing the data against the location of the center of the fitted distribution (likelihood on the y-axis and feature values on the x-axis). We start on the left side of the plot, and we calculate likelihood of observing the data, and then we shift the distribution to the right of the data points lined-up data points (along a number line) and recalculate. We just do this all the way down the data. Once we tried all the possible locations we can center the normal distribution on, We want the location on the plot that maximizes the likelihood of observing the weights we measured(i.e., x-coordinate value that maximizes the y-axis value, since the y-axis value is the likelihood). 
+
+Thus, this point becomes the "maximum likelihood estimate" for this mean (specifically in this case, we are talking about the MEAN of the DISTRIBUTION, and NOT the data) - however, with a normal distribution, those two things are the same. Good - now we have the maximum likelihood estimate for the mean. 
+
+NOW, we have to figure out the maximum likelihood estimate for STANDARD DEVIATION OF THE DISTRIBUTION. Again, we can plot the likelihood (y-axis) of observing the data against standard deviation values (x-axis). Now that we have found the standard deviation that maximizes the likelihood of observing the weights we measured. 
+
+This is the normal distribution that has been fit to the data by using the maximum likelihood estimates for the mean and standard deviation (of the distribution). 
+
+Conclusion:
+Now, when someone says that they have the maxmimum likelihood estimates for the mean and standard deviation, or for something else, you know that they found the value for the mean or the standard deviation (or for whatever) that maximizes the likelihood that you observed the things you observed. 
+
+
+TERMINOLOGY ALERT:
+In everyday conversation, "probability" and "likelihood" mean the same thing. However, in stats-land, "likelihood" specifically refers to this situation we've covered here; where you are trying to find the optimal value for the mean or standard deviation for a distribution given a bunch of observed measurements. 
+
+The equation for the normal distribution is (you just have to plug and chug and you get the likelihood value along the y-axis given a value for mean (u) and standard deviation (sigma), given a value of x in a collection X):
+
+	pr(x|u, sigma) = (1/math.sqrt(2*math.pi*vsigma**2)) * math.e**-((x-u)**2/(2*sigma**2))
+
+To solve for the maximum likelihood estimate for u, we treat sigma like a constant and then find where the slope of its likelihood function = 0. We do the reverse if we want to solve for sigma instead of u. 
+
+We solve this for all data points and the MLE for more than one data point is just
+
+	MLE of mean for all data points = 
+	MLE(x1) * MLE(x2) * ...MLE(x[len(X)])
+
+```
+
+## Difference between likelihood and probability
+
+```
+# Probabilities 
+
+Are the AREAS under a FIXED distribution
+
+	pr(data | distribution)
+
+Probability = chance that a randomly select sample drawn from the distribution will have a particular value. With probability, we keep the right hand side the same (i.e., the shape and location of the distribution) while we change the measurements on the left side of the expression.
+
+Notation:
+
+	pr(mouse_weights=32-34 | mean=32, stddev=2.5) = 0.29
+
+# Likelihoods
+
+Are the y-axis values for FIXED DATA POINTS and distributions that CAN BE MOVED. 
+	
+	L(distribution | data)
+
+Likelihood = the likelihood of a distribution with a mean=32, and a stddev=2.5, given that we have already measured and weighed a 34 gram mouse). With likelihoods, the measurements on the right side are fixed, whereas the the shape (stddev) and location(mean) of the distribution with the left side.
+
+Notation:
+
+	L(mean=32, stddev=2.5| mouse_weights=34) = 0.12
+```
+
+## neural networks
+
+```
+
+```
+
+## Git
+
+
+## Docker
+
+## AWS

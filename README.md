@@ -1,43 +1,14 @@
 # Sharpest Minds Project
 
-
-## Overview
-
-1. Background
-2. Rationale
-3. Requirements
-4. Data Acquisition
-5. Building the Project
-
-
 ## Background
 
-Domain level research here.
+As part of the Sharpest Minds mentorship program, mentees choose to develop an end-to-end data science project on their own with the guidance of an experienced data scientist mentor from the organization. An end-to-end project comprises of acquiring your own dataset by a variety of methods; preprocessing the data; exploring the data; feature selection and engineering; model selection, model training, model validation; and parameter tuning. The ultimate goal of the project would be to provide inferences for a user through a web API or application, using either Django or Flask, given user input.
 
-Why do we care?
-
-Who will benefit from our work?
-
-What are the potential barriers and challenges that we might face when we
-
-What problem are we looking to investigate and solve/ameliorate? By what metric do we gauge the success of our efforts?
-
-
-## Requirements
-
-
-```
-!pip install -r requirements.txt
-```
+The project is currently under construction.
 
 ## Data Acquisition
 
 The dataset was acquired from crawling and scraping the following online resources using ```./utils/webscraper.py``` script:
-
-* resource 1
-* resource 2
-* resource 3
-
 
 ## Building the Project
 
@@ -56,7 +27,3 @@ And then run this to black-ify your script. Using the ```--diff``` option allows
 ```python3
 black myscript.py
 ```
-
-## Blog
-
-TBA
