@@ -4,14 +4,34 @@
 
 ## batch norm
 
+```
+
+```
+
 ## dropout
+
+
+```
+
+```
 
 ## RNNS vs CNN
 
+```
+
+```
+
 ## how to deal with missing data.
 
-## when to use Linear Regression vs Nueral Network
+```
 
+```
+
+## when to use Linear Regression vs Neural Network
+
+```
+
+```
 
 ## K-Means vs KNN
 
@@ -33,7 +53,6 @@ K-Means is unsupervised and KNN is supervised.
 ```
 
 ```
-
 
 ## Define AUC ROC, sensitivity, specificity, recall, precision, F1 score, F2 score, accuracy and when you would want to use each?
 
@@ -1196,7 +1215,18 @@ Notation:
 
 ## Git
 
+```
+
+```
 
 ## Docker
 
+```
+
+```
+
 ## AWS
+
+```
+
+```
