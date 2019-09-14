@@ -1,29 +1,4 @@
 
-​col_names = pd.read_csv("/content/drive/My Drive/sharpestminds_dataset/CodeBook-SELECT.csv")
-
-col_names = col_names.loc[:, "VarName"].values
-
-# load in the actual dataset
-
-df = pd.read_csv("/content/drive/My Drive/sharpestminds_dataset/hw5-trainingset-cl3770.csv", header="infer")
-
-df.head()
-
-The dataset is a 93Mb csv file
-
-!du -hs "/content/drive/My Drive/sharpestminds_dataset/hw5-trainingset-cl3770.csv"
-
-# we have a lot of data here
-
-print("{} features, {} observations".format(df.shape[1], df.shape[0]))
-
-​
-
-# we also have a lot of non-numeric data as well
-
-print(df.info(memory_usage='deep'))
-
-​
 
 print(df.describe())
 
@@ -49,94 +24,6 @@ Based on the codebook and the naming conventions for this dataset, we will explo
 # look at these features individually and drop stepwise after analysis
 
 ​
-
-import re
-
-​
-
-pattern_earnhr = re.compile('\Aearnhr')
-earnhr = [col for col in df.columns if re.match(pattern_earnhr, col) != None]
-
-pattern_earnm = re.compile('\Aearnm')
-earnm = [col for col in df.columns if re.match(pattern_earnm, col) != None]
-
-pattern_fn = re.compile('\Afn')
-fn = [col for col in df.columns if re.match(pattern_fn, col) != None]
-
-pattern_ed = re.compile('\Aed')
-ed = [col for col in df.columns if re.match(pattern_ed, col) != None]
-
-pattern_fae = re.compile('\Afae')
-fae = [col for col in df.columns if re.match(pattern_fae, col) != None]
-
-pattern_ict = re.compile('\Aict')
-ict = [col for col in df.columns if re.match(pattern_ict, col) != None]
-
-pattern_nfe12 = re.compile('\Anfe12')
-nfe12 = [col for col in df.columns if re.match(pattern_nfe12, col) != None]
-
-pattern_nfehrs = re.compile('\Anfehrs')
-nfehrs = [col for col in df.columns if re.match(pattern_nfehrs, col) != None]
-
-pattern_writ = re.compile('\Awrit')
-writ = [col for col in df.columns if re.match(pattern_writ, col) != None]
-
-pattern_yrs = re.compile('\Ayrs')
-yrs = [col for col in df.columns if re.match(pattern_yrs, col) != None]
-
-pattern_isco = re.compile('\Aisco')
-isco = [col for col in df.columns if re.match(pattern_isco, col) != None]
-
-pattern_isic = re.compile('\Aisic')
-isic = [col for col in df.columns if re.match(pattern_isic, col) != None]
-
-
-
-features_earnhr_drop = ['earnhrbonusppp', 'earnhrbonus', 'earnhrppp', 'earnhr']
-df.drop(features_earnhr_drop, inplace=True, axis=1)
-
-
-features_earnm_drop = ['earnmthbonusppp', 'earnmthselfppp', 'earnmthbonus', 'earnmthppp', 'earnmth', 'earnmthallppp', 'earnmthall']
-df.drop(features_earnm_drop, inplace=True, axis=1)
-
-
-features_fn_drop = ['fnfaet12njr', 'fnfaet12jr', 'fnfaet12', 'fnfe12jr']
-df.drop(features_fn_drop, inplace=True, axis=1)
-
-features_ed_drop = ['edcat8', 'edwork', 'edcat6', 'edlevel3']
-df.drop(features_ed_drop, inplace=True, axis=1)
-
-
-
-features_fae_drop = ['faet12njr', 'faet12jr']
-df.drop(features_fae_drop, inplace=True, axis=1)
-
-
-features_ict_drop = [ 'icthome_wle_ca', 'ictwork_wle_ca' ]
-df.drop(features_ict_drop, inplace=True, axis=1)
-
-
-features_nfe12_drop = ['nfe12jr', 'nfe12njr']
-df.drop(features_nfe12_drop, inplace=True, axis=1)
-
-features_nfehrs = ['nfehrsjr', 'nfehrsnjr']
-df.drop(features_nfehrs, inplace=True, axis=1)
-
-
-features_writ_drop = [ 'writhome_wle_ca', 'writwork_wle_ca' ]
-df.drop(features_writ_drop, inplace=True, axis=1)
-
-
-features_yrs_drop = ['yrsget', 'yrsqual']
-df.drop(features_yrs_drop, inplace=True, axis=1)
-
-
-features_isco_drop = ['isco2l', 'isco1l', 'isco1c']
-df.drop(features_isco_drop, inplace=True, axis=1)
-
-
-features_isic_drop = ['isic2l', 'isic1l', 'isic2c']
-df.drop(features_isic_drop, inplace=True, axis=1)
 
 
 Preprocessing (Dropping and Replacing) for Missing/Unavailable Value Encodings
@@ -239,6 +126,8 @@ dropped_columns_dataframe.to_csv('./features_greater_50_percent_missing_data_by_
 
 reduced_df.to_csv('./reduced_df_gtoe_{}_missing_df.csv'.format(dropthreshold))
 
+
+
 def report_missing(preproc_data, postproc_data, axis=1, dropthreshold=None):
 
     """ dataset in dataframe format passed in is before and after dropping feature columns or rows. """
@@ -273,25 +162,6 @@ def report_missing(preproc_data, postproc_data, axis=1, dropthreshold=None):
 
          )
 
-    
-
-​
-
-Missing Data Proportion By Row
-
-An alternative strategy would be just to drop all of the rows with missing values. This step requires a little more wor as we will have more than 0 data points that have missing values and require imputation of missing values.
-
-Lets first drop any data ROWS with 20% or more missing values and see what we end up with.
-
-Just a refresher on how to how to conditionally select rows from a data frame:
-
-To select rows whose column value equals a scalar, some_value, use ==: df.loc[df['column_name'] == some_value]
-
-To select rows whose column value is in an iterable, some_values, use isin: df.loc[df['column_name'].isin(some_values)]
-
-Combine multiple conditions with &: df.loc[(df['column_name'] >= A) & (df['column_name'] <= B)]
-
-Conditionally set values df[label] = df.variable.where('label' == 'another_label')
 
 # Data points with percentage of data missing and greater will be dropped from the dataset
 

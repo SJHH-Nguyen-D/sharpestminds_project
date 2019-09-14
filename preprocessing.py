@@ -5,7 +5,7 @@ import typing_extensions
 import numpy as np
 import os
 import re 
-from constants import DATASETPATH, ORDINALITY_MAPPING
+from constants import DATASETPATH, ORDINALITY_MAPPING, REGEXES
 
 
 def load_dataset(filepath):
@@ -20,7 +20,12 @@ def load_dataset(filepath):
 class Preprocessor:
     """ Preprocessor class for project """
     def fit_transform_drop(self, X):
+        assert isinstance(X, pd.DataFrame), "The input data structure must be a pandas dataframe."
+        DROP_FEATURE_DICT = {key: val for key in REGEXES for val in X.columns if re.match(key) != None}
+        
         return dataset
+
+        
 
     def fit_transform_encoding(self, X):
         """ perform all the transformations you need for project """
