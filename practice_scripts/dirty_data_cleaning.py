@@ -37,3 +37,6 @@ import time
 df.apply(lambda r : pd.datetime.combine(r['Month (text)'] ,r['GMT']), 1)
 
 print(df.head())
+
+pattern = re.compile(r"00:00:00$")
+matches = pattern.finditer(element_in_series)

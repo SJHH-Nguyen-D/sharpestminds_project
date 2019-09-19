@@ -1,6 +1,7 @@
 numpy
 pandas
-beautifulsoup4
 regex
-sklearn
-requests
+scikit-learn
+tpot
+seaborn
+mlxtend
