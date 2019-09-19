@@ -5,7 +5,7 @@ import typing_extensions
 import numpy as np
 import os
 import re 
-from constants import DATASETPATH, ORDINALITY_MAPPING, REGEXES
+from constants import RAWDATASETPATH, ORDINALITY_MAPPING, REGEXES
 
 
 def load_dataset(filepath):
@@ -25,7 +25,6 @@ class Preprocessor:
         
         return dataset
 
-        
 
     def fit_transform_encoding(self, X):
         """ perform all the transformations you need for project """
@@ -42,9 +41,10 @@ class Preprocessor:
 
 
 def save_out_dataset(post_processed_dataframe, save_filename):
-    if not os.path.exists("../PythonProjects/post_processed_datasets/"):
-        os.makedirs("../PythonProjects/post_processed_datasets/")
-    post_processed_dataframe.to_csv("../PythonProjects/post_processed_datasets/"+save_filename)
+    datadir = "../PythonProjects/post_processed_datasets/"
+    if not os.path.exists(datadir):
+        os.makedirs(datadir)
+    post_processed_dataframe.to_csv(os.path.join(datadir, save_filename))
 
 
 

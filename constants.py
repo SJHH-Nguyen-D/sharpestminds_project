@@ -1,10 +1,10 @@
 import re
 
-DATASETPATH = "/home/dennis/PythonProjects/datasets/hw5-trainingset-cl3770.csv"
-
+RAWDATASETPATH = "/home/dennis/PythonProjects/datasets/hw5-trainingset-cl3770.csv"
+POSTPROCESSED_DATAPATH = '/home/dennis/PythonProjects/datasets/sharpest-minds/post_processed_employee_dataset_10_feats_sfs.csv'
+PERIODIC_CHECKPOINT_FOLDER = "/home/dennis/Desktop/Link to datascience_job_portfolio/sharpestminds_project/periodic_checkpoint_folder"
 FEATURES_TO_DROP = ['earnhrbonusppp', 'earnhrbonus', 'earnhrppp', 'earnhr', 'earnmthbonusppp', 'earnmthselfppp', 'earnmthbonus', 'earnmthppp', 'earnmth', 'earnmthallppp', 'earnmthall', 'fnfaet12njr', 'fnfaet12jr', 'fnfaet12', 'fnfe12jr', 'edcat8', 'edwork', 'edcat6', 'edlevel3', 'icthome_wle_ca', 'ictwork_wle_ca', 'nfe12jr', 'nfe12njr', 'nfehrsjr', 'nfehrsnjr', 'writhome_wle_ca', 'writwork_wle_ca', 'yrsget', 'yrsqual', 'isco2l', 'isco1l', 'isco1c', 'isic2l', 'isic1l', 'isic2c', "v224", "v278", "v25", "v124", "v25", "v124", "v200", "neet", 'v59', 'v212', 'ctryqual', 'birthrgn', 'cntryid_e', 'cntryid', "ageg10lfs_t", 'age_r', 'row', 'v239', "uni", "reg_tl2"]
 
-print(FEATURES_TO_DROP)
 
 # ORDINALITY_MAPPING = [
 
