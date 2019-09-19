@@ -7,7 +7,6 @@ from constants import RAWDATASETPATH, ORDINALITY_MAPPING, REGEXES
 
 
 def load_dataset(filepath):
-    assert os.path.exists(filepath), "The filepath that you have specified does not exists"
     try:
         preprocessing_dataset = pd.read_csv(filepath, header='infer')
     except IOError:
@@ -18,7 +17,8 @@ def load_dataset(filepath):
 class Preprocessor:
     """ Preprocessor class for project """
     def fit_transform_drop(self, X):
-        assert isinstance(X, pd.DataFrame), "The input data structure must be a pandas dataframe."
+        try:
+
         DROP_FEATURE_DICT = {key: val for key in REGEXES for val in X.columns if re.match(key) != None}
         
         return dataset
@@ -26,10 +26,9 @@ class Preprocessor:
 
     def fit_transform_encoding(self, X):
         """ perform all the transformations you need for project """
-
         # encode 
         try:
-            for i in range(dataset):
+            for i in range(len(X)):
                 print("Hello World!")
         except IOError:
             print("Invalid inputs")
