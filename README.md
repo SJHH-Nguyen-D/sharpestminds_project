@@ -40,7 +40,7 @@ The data exploration and visualization can be seen in the accompanying Jupyter N
 
 ## Data Preprocessing
 
-The raw employee performance dataset is stored locally, loaded in as a Pandas DataFrame and preprocessed through a series of encoding, dropping and selection steps, performed heuristically, which is detailed in the ```preprocessing.py```. The script makes use of pandas.Categorical() method, scikit-learn.LabelEncoder() and OneHotEncoder() before the features selection step. Additionally, instead of a uniform, static method for computing for missing values, an machine-learning approach to imputation is performed with ```missingpy```'s nearest neighbors imputer.
+The raw employee performance dataset is stored locally, loaded in as a Pandas DataFrame and preprocessed through a series of encoding, dropping and selection steps, performed heuristically, which is detailed in the ```preprocessing.py```. The script makes use of `pandas.Categorical()` method, `scikit-learn.LabelEncoder()` and `OneHotEncoder()` before the features selection step. Additionally, instead of a uniform, static method for computing for missing values, an machine-learning approach to imputation is performed with ```missingpy```'s nearest neighbors imputer.
 
 ## Feature Selection
 
