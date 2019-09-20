@@ -4,6 +4,9 @@
 
 As part of the Sharpest Minds mentorship program, mentees choose to develop an end-to-end data science project on their own with the guidance of an experienced data scientist mentor from the organization. An end-to-end project comprises of acquiring your own dataset by a variety of methods; preprocessing the data; exploring the data; feature selection and engineering; model selection, model training, model validation; and parameter tuning. The ultimate goal of the project would be to provide inferences for a user through a web API or application, using the Flask web framework API, given user inputs on employee characteristics.
 
+
+![Employees, yay!](images/stock_image.jpg "Employees are having a good time.")
+
 ## The Problem
 
 The data set in question is 92 Mb in size with a shape of (20000, 380). Each sample is an employee record with attributes on their education, demographics, type of employment. The target attribute is a computed relative employee performance score. The objective then is to produce inferences of a employee performance metric, based on the characteristics of each employee.
@@ -42,6 +45,8 @@ The raw employee performance dataset is stored locally, loaded in as a Pandas Da
 ## Feature Selection
 
 The feature selection for the model was performed using a combination of knowledge-based, hand-selected and the ```SequentialFeatureSelector``` in the ```mlxtend``` module and is part of the ```preprocessing.py``` script. The number of features that were selected, prior to modeling, was arbitrary. 
+
+![Sequential Feature Selector](images/stairs resized.jpeg "Selecting one feature at a time.")
 
 ## Pipeline Optimization and Selection
 
