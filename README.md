@@ -46,7 +46,7 @@ The raw employee performance dataset is stored locally, loaded in as a Pandas Da
 
 The feature selection for the model was performed using a combination of knowledge-based, hand-selected and the ```SequentialFeatureSelector``` in the ```mlxtend``` module and is part of the ```preprocessing.py``` script. The number of features that were selected, prior to modeling, was arbitrary. 
 
-![Sequential Feature Selector](images/stairs resized.jpeg "Selecting one feature at a time.")
+![Sequential feature selector](images/stairs_resized.jpeg "Selecting one feature at a time.")
 
 ## Pipeline Optimization and Selection
 
