@@ -1,9 +1,65 @@
 import re
 
 RAWDATASETPATH = "/home/dennis/PythonProjects/datasets/hw5-trainingset-cl3770.csv"
-POSTPROCESSED_DATAPATH = '/home/dennis/PythonProjects/datasets/sharpest-minds/post_processed_employee_dataset_10_feats_sfs.csv'
+POSTPROCESSED_DATAPATH = "/home/dennis/PythonProjects/datasets/sharpest-minds/post_processed_employee_dataset_10_feats_sfs.csv"
 PERIODIC_CHECKPOINT_FOLDER = "/home/dennis/Desktop/Link to datascience_job_portfolio/sharpestminds_project/periodic_checkpoint_folder"
-FEATURES_TO_DROP = ['earnhrbonusppp', 'earnhrbonus', 'earnhrppp', 'earnhr', 'earnmthbonusppp', 'earnmthselfppp', 'earnmthbonus', 'earnmthppp', 'earnmth', 'earnmthallppp', 'earnmthall', 'fnfaet12njr', 'fnfaet12jr', 'fnfaet12', 'fnfe12jr', 'edcat8', 'edwork', 'edcat6', 'edlevel3', 'icthome_wle_ca', 'ictwork_wle_ca', 'nfe12jr', 'nfe12njr', 'nfehrsjr', 'nfehrsnjr', 'writhome_wle_ca', 'writwork_wle_ca', 'yrsget', 'yrsqual', 'isco2l', 'isco1l', 'isco1c', 'isic2l', 'isic1l', 'isic2c', "v224", "v278", "v25", "v124", "v25", "v124", "v200", "neet", 'v59', 'v212', 'ctryqual', 'birthrgn', 'cntryid_e', 'cntryid', "ageg10lfs_t", 'age_r', 'row', 'v239', "uni", "reg_tl2"]
+FEATURES_TO_DROP = [
+    "earnhrbonusppp",
+    "earnhrbonus",
+    "earnhrppp",
+    "earnhr",
+    "earnmthbonusppp",
+    "earnmthselfppp",
+    "earnmthbonus",
+    "earnmthppp",
+    "earnmth",
+    "earnmthallppp",
+    "earnmthall",
+    "fnfaet12njr",
+    "fnfaet12jr",
+    "fnfaet12",
+    "fnfe12jr",
+    "edcat8",
+    "edwork",
+    "edcat6",
+    "edlevel3",
+    "icthome_wle_ca",
+    "ictwork_wle_ca",
+    "nfe12jr",
+    "nfe12njr",
+    "nfehrsjr",
+    "nfehrsnjr",
+    "writhome_wle_ca",
+    "writwork_wle_ca",
+    "yrsget",
+    "yrsqual",
+    "isco2l",
+    "isco1l",
+    "isco1c",
+    "isic2l",
+    "isic1l",
+    "isic2c",
+    "v224",
+    "v278",
+    "v25",
+    "v124",
+    "v25",
+    "v124",
+    "v200",
+    "neet",
+    "v59",
+    "v212",
+    "ctryqual",
+    "birthrgn",
+    "cntryid_e",
+    "cntryid",
+    "ageg10lfs_t",
+    "age_r",
+    "row",
+    "v239",
+    "uni",
+    "reg_tl2",
+]
 
 
 # ORDINALITY_MAPPING = [
@@ -13,7 +69,7 @@ FEATURES_TO_DROP = ['earnhrbonusppp', 'earnhrbonus', 'earnhrppp', 'earnhr', 'ear
 #      "v276","v43", "v197", "v214", "v7", "v175", "v139", "v123", "v14", "v178",\
 #     "v34", "v106", "v246", "v131", "v111", "v173", "v260", "v164", "v186", "v240", "v208",\
 #     "v275", "v132", "v141", "v25", "v177", "v149", "v23", "v193", "v237", "v162", "v146",\
-#     "v277", "v40", "v73", "v195"], 
+#     "v277", "v40", "v73", "v195"],
 #      ['Never','Less than once a month','Less than once a week but at least once a month','At least once a week but not every day','Every day']],
 
 #     [['v244', "v65", "v263", "v158", "v57", "v170", "v198", "v278", "v25", "v191", "v114", "v27"], ['Not at all','Very little', 'To some extent', 'To a high extent','To a very high extent']],
@@ -25,9 +81,9 @@ FEATURES_TO_DROP = ['earnhrbonusppp', 'earnhrbonus', 'earnhrppp', 'earnhr', 'ear
 #     ["v181", ['Extremely dissatisfied', 'Dissatisfied', 'Neither satisfied nor dissatisfied', 'Satisfied', 'Extremely satisfied']],
 #     ["v271", ['Straightforward','Moderate','Complex']],
 
-#     ["v122", ['No', 'Yes, unpaid work for family business', 'Yes, paid work one job or business','Yes, paid work more than one job or business or number of jobs/businesses missing']], 
+#     ["v122", ['No', 'Yes, unpaid work for family business', 'Yes, paid work one job or business','Yes, paid work more than one job or business or number of jobs/businesses missing']],
 
-#     [["v247", "v134", "v13", "v18", "v26", "v124", "v99", "v282", "v51", "v2", "v248"], ['Never','Rarely','Less than once a week' ,'At least once a week']], 
+#     [["v247", "v134", "v13", "v18", "v26", "v124", "v99", "v282", "v51", "v2", "v248"], ['Never','Rarely','Less than once a week' ,'At least once a week']],
 
 #     [["v291", "v77"], ['None of the time', 'Up to a quarter of the time','Up to half of the time','More than half of the time','All of the time']],
 
@@ -44,7 +100,7 @@ FEATURES_TO_DROP = ['earnhrbonusppp', 'earnhrbonus', 'earnhrppp', 'earnhr', 'ear
 #     ["v261", ['0 - 20 hours','21 - 40 hours', '41 - 60 hours' , '61 - 80 hours', '81 - 100 hours', 'More than 100 hours']],
 
 #     ["monthlyincpr", "yearlyincpr"], ['Less than 10','10 to less than 25', '25 to less than 50', '50 to less than 75', '75 to less than 90', '90 or more']],
-    
+
 #     ["v221", ['None','Less than 1 month','1 to 6 months','7 to 11 months', '1 or 2 years','3 years or more']],
 
 #     [["v85", "v50", "v69"], ['Strongly disagree', 'Disagree', 'Neither agree nor disagree', 'Agree', 'Strongly agree']],
@@ -75,13 +131,13 @@ FEATURES_TO_DROP = ['earnhrbonusppp', 'earnhrbonus', 'earnhrppp', 'earnhr', 'ear
 
 #     ["v8", ['Decreased', 'Stayed more or less the same', 'Increased']],
 
-#     ['edcat7', ['Primary or less (ISCED 1 or less)', 
-#                 'Lower secondary (ISCED 2, ISCED 3C short)', 
-#                 'Upper secondary (ISCED 3A-B, C long)', 
-#                 'Post-secondary, non-tertiary (ISCED 4A-B-C)', 
-#                 'Tertiary – bachelor degree (ISCED 5A)', 
-#                 r'Tertiary – master/research degree (ISCED 5A/6)\xa0', 
-#                 'Tertiary - bachelor/master/research degree (ISCED 5A/6)', 
+#     ['edcat7', ['Primary or less (ISCED 1 or less)',
+#                 'Lower secondary (ISCED 2, ISCED 3C short)',
+#                 'Upper secondary (ISCED 3A-B, C long)',
+#                 'Post-secondary, non-tertiary (ISCED 4A-B-C)',
+#                 'Tertiary – bachelor degree (ISCED 5A)',
+#                 r'Tertiary – master/research degree (ISCED 5A/6)\xa0',
+#                 'Tertiary - bachelor/master/research degree (ISCED 5A/6)',
 #                 'Tertiary – professional degree (ISCED 5B)']
 #     ]
 
