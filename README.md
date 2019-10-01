@@ -4,7 +4,7 @@
 
 As part of the Sharpest Minds mentorship program, mentees choose to develop an end-to-end data science project on their own with the guidance of an experienced data scientist mentor from the organization. An end-to-end project comprises of acquiring your own dataset by a variety of methods; preprocessing the data; exploring the data; feature selection and engineering; model selection, model training, model validation; and parameter tuning. The ultimate goal of the project would be to provide inferences for a user through a web API or application, using the Flask web framework API, given user inputs on employee characteristics.
 
-The corresponding blog for this project can be followed here("SJHH-Nguyen-D/github.io").
+The corresponding blog for this project can be followed [here]("SJHH-Nguyen-D/github.io").
 
 
 ![Employees, yay!](images/stock_image.jpg "Employees are having a good time.")
