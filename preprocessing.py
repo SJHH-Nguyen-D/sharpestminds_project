@@ -14,6 +14,9 @@ def load_dataset(filepath):
     return preprocessing_dataset
 
 
+df = load_dataset("/path/to/data.csv", header="infer")
+
+
 class Preprocessor:
     """ Preprocessor class for project """
     def fit_transform_drop(self, X):

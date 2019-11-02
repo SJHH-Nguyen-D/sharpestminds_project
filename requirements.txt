@@ -5,3 +5,4 @@ scikit-learn
 tpot
 seaborn
 mlxtend
+missingpy

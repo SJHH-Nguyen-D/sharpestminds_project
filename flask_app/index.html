@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Sharpest Minds Project page</title>
+    </head>
+
+    <body>
+        <h1>Job Performance Score Prediction</h1>
+        <p>
+            Please answer the following questions concerning your employee characteristics to receive an estimate of your relative employee score. <strong>NOTE:</strong> this job performance evaluation is fictional and is not a reflection of who you are as a person. Please do not take it personal :)
+        </p>
+        <hr>
+        <!-- action Specifies an address (url) where to submit the form (default: the submitting page). -->
+        <form action="/action_page.php" target="_self" method="POST" oninput="job_performance.value=parseInt(a.value)+parseInt(b.value)">
+            <fieldset>
+                <legend>Employee Characteristics:</legend>
+                What is the feature value for here:<br>
+                <input type="text" name="feature-1" value="">
+                <br><br>
+
+                What language do you use to <strong>communicate</strong> at home?<br>
+                <input type="radio" name="lang-home" value="hungarian" checked required>Hungarian<br>
+                <input type="radio" name="lang-home" value="norwegian" required>Norwegian<br>
+                <input type="radio" name="lang-home" value="other" required>Other
+                <br><br>
+
+                What language did you <strong>complete the job performance evaluation</strong> in?<br>
+                <input type="radio" name="lang-form" value="english" checked required>English<br>
+                <input type="radio" name="lang-form" value="spanish" required>Spanish<br>
+                <input type="radio" name="lang-form" value="other" required>
+                <br><br>
+
+                What did you score on your index of information, technology and communications tests?<br>
+                0
+                <input type="range" id="a" name="a" value="1000" step=100 required>
+                1000 + 
+                <input type="number" id="b" name="b" placeholder="1000" min="0" max="9999" required>
+                =
+                <output name="job_performance_score" for="a b"></output>
+                <br><br>
+                
+                If you had to choose a Pokemon, what would it be?<br>
+                <input list="pokemon">
+                <datalist id="pokemon" name="pocket_monster">
+                    <option value="pikachu"></option>
+                    <option value="ivysaur"></option>
+                    <option value="charizard"></option>
+                    <option value="gengar"></option>
+                </datalist>
+                <br><br>
+
+                <input type="submit" value="Submit for score">
+                <input type="reset">
+            </fieldset>
+        </form>
+        <br>
+        <address>
+            Author: Dennis Nguyen-Do<br>
+            GitHub: <a href="https://www.github.com/SJHH-Nguyen-D">SJHH-Nguyen-D</a><br>
+            LinkedIn: <a href="https://www.linkedin.com/in/dennisnguyendo/">Dennis Nguyen-Do</a>
+            Email: dennisnguyendo@gmail.com<br>
+            Location: Toronto, ON
+        </address>
+    </body>
+</html>
