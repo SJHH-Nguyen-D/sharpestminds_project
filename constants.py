@@ -1,6 +1,7 @@
 # if using google colab use DRIVENAME
 DRIVENAME = '/content/drive/'
-FILENAME = "/content/drive/My Drive/sharpestminds_dataset/hw5-trainingset-cl3770.csv"
+# FILENAME = "/content/drive/My Drive/sharpestminds_dataset/hw5-trainingset-cl3770.csv"
+FILENAME = "/home/dennis/PythonProjects/datasets/sharpest-minds/hw5-trainingset-cl3770.csv"
 
 CONSIDERED_MISSING_VALUES = ['999', 9995, '9995', 9996, '9996', 9997, "9997", 9998, '9998', 9999, '9999', '99999']
 REDUNDANT_FEATURES = ["readytolearn_wle_ca", "icthome_wle_ca", "ictwork_wle_ca", 
@@ -97,7 +98,6 @@ NOMINAL_FEATURE_NAMES = [
   "isic1l", "v31", "v137", "v234", "v91","v92",
   "v88", "v140", "v3",]
 
-RAWDATASETPATH = "/home/dennis/PythonProjects/datasets/hw5-trainingset-cl3770.csv"
 POSTPROCESSED_DATAPATH = "/home/dennis/PythonProjects/datasets/sharpest-minds/post_processed_employee_dataset_10_feats_sfs.csv"
 PERIODIC_CHECKPOINT_FOLDER = "/home/dennis/Desktop/Link to datascience_job_portfolio/sharpestminds_project/periodic_checkpoint_folder"
 

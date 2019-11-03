@@ -1,4 +1,6 @@
 import pandas_profiling
+import pandas as pd
+import numpy as np
 from scipy.stats import iqr
 from numpy import percentile
 from sklearn.preprocessing import LabelEncoder
@@ -85,7 +87,7 @@ def nominal_feature_mapping(dataframe):
 def transform_all(dataframe, binary_mapping, ordinal_mapping):
     """all transformations into one function"""
     # binary mappings
-    binary_feature_names = list(set([col for col in categorical_df.columns if len(categorical_df[col].unique()) <= 3]) - set(["v51", "v229", "v13"]))
+    binary_feature_names = list(set([col for col in dataframe.columns if len(dataframe[col].unique()) <= 3]) - set(["v51", "v229", "v13"]))
     binary_df = dataframe[binary_feature_names]
     binary_variable_mapping(binary_df, binary_mapping)
     
@@ -218,7 +220,7 @@ def model_selection_and_HPO(dataframe, target="job_performance", test_size=0.25,
 def main():
     from timeit import default_timer
 
-    drive.mount(DRIVENAME)
+    # drive.mount(DRIVENAME)
     df = pd.read_csv(FILENAME, header='infer')
     df = (df.drop(index=get_outliers_and_extremes(df, numeric_attribute='job_performance').index, inplace=False, axis=0) # drop outliers
             .drop(labels=detect_highly_correlated_variables(df), inplace=False, axis=1) # drop highly related correlated variables
@@ -229,7 +231,7 @@ def main():
     df = (df.drop(index=list(df[((df.isnull().sum(axis=1)/df.shape[1]) >= 0.40) == True].index), # drop rows that have more than 40% of values missing
                  inplace=False,
                  axis=0) # drop observations with greater than 40% of values missing
-           .drop(labels=REDUNDANT_FEATURES, inplace=False, axis=1)) # drop redundant features
+           .drop(labels=[feature for feature in REDUNDANT_FEATURES if feature in df.columns], inplace=False, axis=1)) # drop redundant features
 
     numeric_df, categorical_df = df_by_type_splitter(df)
     categorical_df = transform_all(categorical_df, BINARY_VARIABLE_MAPPING, ORDINAL_VARIABLE_MAPPING)
